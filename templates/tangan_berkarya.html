@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/paket-cards.css' %}">
+
+<!-- KELAS BG KARTU (pakai CSS var --bg) -->
+<style>
+  .bg-mtb   { --bg: url("{% static 'img/kagarai.png' %}"); }
+  .bg-rafting{ --bg: url("{% static 'img/asap.png' %}"); }
+  .bg-cabin { --bg: url("{% static 'img/bunga.png' %}"); }
+  .bg-guest { --bg: url("{% static 'img/anyaman.png' %}"); }
+  .bg-suite { --bg: url("{% static 'img/pandan.png' %}"); }
+  .bg-family{ --bg: url("{% static 'img/madu.png' %}"); }
+  .bg-bike  { --bg: url("{% static 'img/bawang.png' %}"); }
+  .bg-river { --bg: url("{% static 'img/minyak.png' %}"); }
+  .bg-hike  { --bg: url("{% static 'img/senga.png' %}"); }
+
+  /* util: pastikan kontras & map stabil */
+  .hero-card .hero-inner{
+    text-shadow: 0 2px 14px rgba(0,0,0,.35);
+    backdrop-filter: saturate(110%) blur(0.5px);
+  }
+  .map-frame{ width:100%; aspect-ratio: 16/9; border-radius: 16px; overflow:hidden; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+  #umkm-map{ width:100%; height:100%; min-height:340px; }
+  .section-title{ margin-bottom: 14px; }
+</style>
+
+<!-- INTRO -->
+<section class="pkg-intro">
+  <div class="container">
+    <div class="intro-card">
+      <h1>Usaha Mikro, Kecil, dan Menengah</h1>
+      <p>Desa Gaya Baru adalah wujud nyata semangat kemandirian masyarakat pesisir Buton Selatan. Dari tangan-tangan kreatif warganya, lahir berbagai produk lokal unggulan bernilai ekonomi sekaligus mencerminkan kekayaan budaya dan alam.</p>
+      <p>Dari olahan laut hingga kerajinan tangan, dari rempah tradisional hingga tanaman hias, UMKM di desa ini tidak hanya menopang ekonomi, tetapi juga menjaga warisan leluhur dan memperkuat identitas lokal di tengah arus modernisasi.</p>
+    </div>
+  </div>
+</section>
+
+<!-- KARTU UMKM -->
+<section class="pkg" aria-label="Daftar UMKM Desa Gaya Baru">
+  <div class="container">
+
+    <!-- BARIS 1 -->
+    <h2 class="pkg-row-title">Olahan Pangan Lokal</h2>
+    <div class="card-grid">
+      <article class="hero-card bg-mtb">
+        <div class="hero-inner">
+          <h3>Ikan Kagarai</h3>
+          <p>Olahan ikan kering khas Gaya Baru: dijemur menggunakan air laut—gurih alami &amp; tahan lama tanpa pengawet.</p>
+          <div class="hero-actions">
+            <a class="btn btn-ghost" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20Ikan%20Kagarai." aria-label="Hubungi via WhatsApp untuk Ikan Kagarai">Hubungi lebih lanjut ➜</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="hero-card bg-rafting">
+        <div class="hero-inner">
+          <h3>Ikan Asap “Ikan Terbang”</h3>
+          <p>Ikon kuliner Buton Selatan: varian Original &amp; Gurih, cocok sebagai oleh-oleh.</p>
+          <div class="hero-actions">
+            <a class="btn btn-ghost" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20Ikan%20Asap%20Ikan%20Terbang." aria-label="Hubungi via WhatsApp untuk Ikan Asap Ikan Terbang">Hubungi lebih lanjut ➜</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="hero-card bg-bike">
+        <div class="hero-inner">
+          <h3>Bawang Goreng Mombaka</h3>
+          <p>Bawang merah lokal renyah produksi Kelompok Tani Watati Makmur—camilan khas Lapandewa Jaya.</p>
+          <div class="hero-actions">
+            <a class="btn btn-ghost" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20Bawang%20Goreng%20Mombaka." aria-label="Hubungi via WhatsApp untuk Bawang Goreng Mombaka">Hubungi lebih lanjut ➜</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- BARIS 2 -->
+    <h2 class="pkg-row-title">Kerajinan Tangan</h2>
+    <div class="card-grid">
+      <article class="hero-card bg-cabin">
+        <div class="hero-inner">
+          <h3>Kerajinan Bunga dari Limbah Plastik</h3>
+          <p>Daur ulang plastik bekas jadi hiasan bunga—suvenir ramah lingkungan (Waburi Park).</p>
+          <div class="hero-actions">
+            <a class="btn btn-ghost" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20Kerajinan%20Bunga%20Plastik." aria-label="Hubungi via WhatsApp untuk Kerajinan Bunga Plastik">Hubungi lebih lanjut ➜</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="hero-card bg-guest">
+        <div class="hero-inner">
+          <h3>Anyaman “Balase” Daun Kelapa</h3>
+          <p>Tas &amp; wadah anyaman khas Busel—solusi ramah lingkungan yang melestarikan kearifan lokal.</p>
+          <div class="hero-actions">
+            <a class="btn btn-ghost" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20Anyaman%20Balase." aria-label="Hubungi via WhatsApp untuk Anyaman Balase">Hubungi lebih lanjut ➜</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="hero-card bg-suite">
+        <div class="hero-inner">
+          <h3>Anyaman Bambu &amp; Daun Agel</h3>
+          <p>Tas, bakul, dan tikar etnik dari bambu &amp; daun pandan (agel)—warisan pengrajin Lapandewa.</p>
+          <div class="hero-actions">
+            <a class="btn btn-ghost" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20Anyaman%20Bambu%20%26%20Agel." aria-label="Hubungi via WhatsApp untuk Anyaman Bambu dan Agel">Hubungi lebih lanjut ➜</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- BARIS 3 -->
+    <h2 class="pkg-row-title">Produk Olahan dan Herbal Lokal</h2>
+    <div class="card-grid">
+      <article class="hero-card bg-hike">
+        <div class="hero-inner">
+          <h3>Kelapa Goreng “Senga Senga”</h3>
+          <p>Kelapa sangrai khas Lande—camilan gurih &amp; inovasi nilai tambah kelapa lokal.</p>
+          <div class="hero-actions">
+            <a class="btn btn-ghost" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20Kelapa%20Goreng%20Senga%20Senga." aria-label="Hubungi via WhatsApp untuk Kelapa Goreng Senga Senga">Hubungi lebih lanjut ➜</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="hero-card bg-river">
+        <div class="hero-inner">
+          <h3>Minyak Kelapa Tradisional</h3>
+          <p>Minyak kelapa murni rumahan dari buah kelapa Busel—sehat &amp; bernilai ekonomi.</p>
+          <div class="hero-actions">
+            <a class="btn btn-ghost" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20Minyak%20Kelapa%20Tradisional." aria-label="Hubungi via WhatsApp untuk Minyak Kelapa Tradisional">Hubungi lebih lanjut ➜</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="hero-card bg-family">
+        <div class="hero-inner">
+          <h3>Madu Trigona (“Ongka Madu”)</h3>
+          <p>Madu kelulut alami—produk herbal unggulan dari lebah tanpa sengat di Buton Selatan.</p>
+          <div class="hero-actions">
+            <a class="btn btn-ghost" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20Madu%20Trigona." aria-label="Hubungi via WhatsApp untuk Madu Trigona">Hubungi lebih lanjut ➜</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- ====== PETA (HANYA SATU) ====== -->
+    <section class="map-section" id="umkm">
+      <div class="container">
+        <h3 class="section-title">Peta Sebaran UMKM</h3>
+        <div class="map-frame">
+          <div id="umkm-map" role="img" aria-label="Peta sebaran UMKM Desa Gaya Baru"></div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</section>
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // ====== DATA TITIK (bisa diganti dari backend nanti) ======
+  const umkmPoints = [
+    { coords: [-5.660571038678991, 122.7651485050672], name: "Restoran Lakaliba" },
+    { coords: [-5.658493705362705, 122.7648754802927], name: "Kios Firanti" },
+    { coords: [-5.65904266290017, 122.76370305905535], name: "Kios Putra" },
+  ];
+
+  // ====== MAP ======
+  const map = L.map("umkm-map", {
+    center: [-5.659498735082537, 122.76564467877607],
+    zoom: 15,
+    zoomControl: true,
+    scrollWheelZoom: true,
+    doubleClickZoom: true,
+    dragging: true
+  });
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors",
+    maxZoom: 19
+  }).addTo(map);
+
+  // Marker & bounds
+  const fg = L.featureGroup().addTo(map);
+  umkmPoints.forEach(p => {
+    L.marker(p.coords)
+      .addTo(fg)
+      .bindPopup(`<b>${p.name}</b><br>UMKM Desa Gaya Baru`);
+  });
+
+  if (umkmPoints.length > 0) {
+    try { map.fitBounds(fg.getBounds(), { padding: [18,18] }); } catch(e) {}
+  }
+
+  // Pastikan render sempurna saat container selesai layout
+  setTimeout(() => map.invalidateSize(), 160);
+
+  // Optional: buka popup saat keyboard fokus (aksesibilitas dasar)
+  map.on('keypress', (e) => {
+    if (e.originalEvent.key === 'Enter') {
+      const layers = Object.values(fg._layers || {});
+      if (layers[0]) layers[0].openPopup();
+    }
+  });
+});
+</script>
+
+{% endblock %}

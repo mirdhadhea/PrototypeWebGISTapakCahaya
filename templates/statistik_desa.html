@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+<section class="dash">
+  <header class="dash-head"><h2>Profil Demografi Penduduk Desa Gaya Baru</h2></header>
+  <div class="dash-grid">
+    <!-- Donut: Jenis Kelamin -->
+    <article class="card card-chart">
+      <div class="card-head"><h3>Jenis Kelamin</h3></div>
+      <div class="chart-wrap small">
+        <canvas id="genderDonut"></canvas>
+        <div class="center-label">
+          <div class="center-total">Total</div>
+          <div class="center-number">1.678</div>
+          <div class="center-sub">Jiwa</div>
+        </div>
+      </div>
+      <div class="pro-legend"><span><i class="dot male"></i>Laki-laki</span><span><i class="dot female"></i>Perempuan</span></div>
+      <div id="clickInfo" class="click-info"></div>
+    </article>
+
+    <!-- KPI: KK -->
+    <article class="card kpi">
+      <div class="kpi-icon home" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 3 2 11h2v9a1 1 0 0 0 1 1h5v-6h4v6h5a1 1 0 0 0 1-1v-9h2Z"/></svg>
+      </div>
+      <div class="kpi-body">
+        <div class="kpi-title">Kepala Keluarga (KK)</div>
+        <div class="kpi-value">380</div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Horizontal Bar: Populasi & KK per Dusun -->
+<section class="dash">
+  <article class="card bar-paired">
+    <div class="card-head"><h3>Populasi & KK per Dusun</h3></div>
+    <div class="paired-inner"><canvas id="pairedBars"></canvas></div>
+  </article>
+</section>
+
+<!-- Bar: Distribusi Umur -->
+<section class="dash">
+  <article class="card bar-age">
+    <div class="card-head"><h3>Distribusi Umur (Jiwa)</h3></div>
+    <div class="age-inner"><canvas id="ageBars"></canvas></div>
+  </article>
+</section>
+
+<!-- Bar: Distribusi Pendidikan -->
+<section class="dash">
+  <article class="card bar-edu">
+    <div class="card-head"><h3>Distribusi Pendidikan (Jiwa)</h3></div>
+    <div class="edu-inner"><canvas id="eduBars"></canvas></div>
+  </article>
+</section>
+
+<!-- Treemap/Donut kolom kanan -->
+<div class="dash-grid two-cols">
+  <article class="card">
+    <div class="card-head"><h3>Mata Pencaharian (Jiwa)</h3></div>
+    <div style="padding:14px 18px 18px;"><canvas id="jobsBar" style="width:100%;height:520px"></canvas></div>
+  </article>
+
+  <article class="card">
+    <div class="card-head"><h3>Ringkasan per Sektor</h3></div>
+    <div class="chart-wrap small">
+      <canvas id="sectorDonut"></canvas>
+      <div class="center-label">
+        <div class="center-total">Total</div>
+        <div class="center-number" id="donutTotal">446</div>
+        <div class="center-sub">Jiwa</div>
+      </div>
+    </div>
+    <div class="pro-legend" id="sectorLegend"></div>
+  </article>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // ===== Global font (sekali saja)
+  const OUTFIT = '"Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif';
+  Chart.defaults.font.family = OUTFIT;
+
+  // ===== Tooltip helper (dipakai donut)
+  const getOrCreateTooltipEl = (chart) => {
+    const parent = chart.canvas.parentNode;
+    let el = parent.querySelector('.chartjs-tooltip');
+    if(!el){ el = document.createElement('div'); el.className='chartjs-tooltip'; el.style.opacity=0; parent.appendChild(el); }
+    return el;
+  };
+  const externalTooltipDonut = (ctx) => {
+    const { chart, tooltip } = ctx, el = getOrCreateTooltipEl(chart);
+    if(tooltip.opacity===0){ el.style.opacity=0; return; }
+    const dp = tooltip.dataPoints[0], value = dp.raw, total = chart.data.datasets[0].data.reduce((a,b)=>a+b,0);
+    const pct = ((value/total)*100).toFixed(1);
+    const color = Array.isArray(dp.dataset.backgroundColor) ? dp.dataset.backgroundColor[dp.dataIndex] : dp.dataset.backgroundColor;
+    el.innerHTML = `<div class="tt-row"><span class="tt-dot" style="background:${color}"></span><span>${dp.label}: <strong>${value} jiwa</strong> (${pct}%)</span></div>`;
+    const { offsetLeft:x, offsetTop:y } = chart.canvas;
+    el.style.opacity = 1; el.style.left = (x + tooltip.caretX) + 'px'; el.style.top = (y + tooltip.caretY) + 'px';
+  };
+
+  // ===== Donut: Jenis Kelamin
+  (() => {
+    const ctx = document.getElementById("genderDonut"); if(!ctx) return;
+    new Chart(ctx.getContext("2d"), {
+      type: "doughnut",
+      data: { labels:["Laki-laki","Perempuan"], datasets:[{ data:[896,782], backgroundColor:["#8DA6C6","#FF7E6D"], borderWidth:0 }] },
+      options: { responsive:true, maintainAspectRatio:false, cutout:"72%", plugins:{ legend:{display:false}, tooltip:{ enabled:false, external:externalTooltipDonut } } }
+    });
+  })();
+
+  // ===== Horizontal Bar: Populasi & KK per Dusun
+  (() => {
+    const el = document.getElementById("pairedBars"); if(!el) return;
+    const ctx = el.getContext("2d");
+    const createGradient = (c, a, b) => { const g=c.createLinearGradient(0,0,800,0); g.addColorStop(0,a); g.addColorStop(1,b); return g; };
+    const gradientPop = createGradient(ctx, "#AFC3DD", "#8DA6C6");
+    const gradientKK  = createGradient(ctx, "#FFB8A9", "#FF7E6D");
+    new Chart(ctx, {
+      type:"bar",
+      data:{ labels:["Dusun Lantai Dua","Dusun Jaya","Dusun Lakaliba"],
+        datasets:[ {label:"Populasi (Jiwa)", data:[1042,364,256], backgroundColor:gradientPop, borderRadius:8, barThickness:18},
+                   {label:"KK",              data:[234, 76, 70],  backgroundColor:gradientKK,  borderRadius:8, barThickness:18} ] },
+      options:{
+        indexAxis:"y", responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{ display:true, labels:{ usePointStyle:true, pointStyle:"rectRounded", boxWidth:10, font:{ family:OUTFIT, weight:"700" }, color:"#1e365a" } },
+                  tooltip:{ backgroundColor:"#1e365a", titleFont:{family:OUTFIT,weight:"800"}, bodyFont:{family:OUTFIT,weight:"600"},
+                            callbacks:{ label:(c)=>`${c.dataset.label}: ${c.raw}${c.datasetIndex===1?" KK":" jiwa"}` } } },
+        scales:{ x:{ grid:{color:"rgba(0,0,0,.06)"}, ticks:{color:"#1e365a",font:{family:OUTFIT}}, title:{display:true,text:"Jumlah",color:"#1e365a",font:{family:OUTFIT,weight:800}} },
+                 y:{ grid:{display:false}, ticks:{color:"#1e365a",font:{family:OUTFIT,weight:800}} } }
+      }
+    });
+  })();
+
+  // ===== Horizontal Bar: Distribusi Umur
+  (() => {
+    const el = document.getElementById('ageBars'); if(!el) return;
+    const ctx = el.getContext('2d');
+    const g = ctx.createLinearGradient(0,0,800,0); g.addColorStop(0,'#AFC3DD'); g.addColorStop(1,'#8DA6C6');
+    new Chart(ctx, {
+      type:'bar',
+      data:{ labels:["0–15","15–45","45–54","54–60","> 60"], datasets:[{ label:'Jumlah Jiwa', data:[315,954,145,55,102], backgroundColor:g, borderRadius:8, borderSkipped:false }] },
+      options:{
+        indexAxis:'y', responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{display:false}, tooltip:{ backgroundColor:'#1e365a', titleFont:{family:OUTFIT,weight:'800'}, bodyFont:{family:OUTFIT,weight:'600'},
+                  callbacks:{ title:c=>c[0].label, label:c=>` ${c.raw} jiwa` } } },
+        scales:{ x:{ beginAtZero:true, grid:{color:'rgba(0,0,0,.06)'}, ticks:{color:'#1e365a',font:{family:OUTFIT}}, title:{display:true,text:'Jiwa',color:'#1e365a',font:{family:OUTFIT,weight:800}} },
+                 y:{ grid:{display:false}, ticks:{color:'#1e365a',font:{family:OUTFIT}}, title:{display:true,text:'Kelompok Umur',color:'#1e365a',font:{family:OUTFIT,weight:800}} } }
+      }
+    });
+  })();
+
+  // ===== Horizontal Bar: Distribusi Pendidikan
+  (() => {
+    const el = document.getElementById('eduBars'); if(!el) return;
+    const ctx = el.getContext('2d');
+    const g = ctx.createLinearGradient(0,0,800,0); g.addColorStop(0,'#FFB8A9'); g.addColorStop(1,'#FF7E6D');
+    new Chart(ctx, {
+      type:'bar',
+      data:{ labels:["Tidak Sekolah","SD","SMP","SMA","Diploma","S1","S2","S3","Lainnya"], datasets:[{ label:'Jumlah Jiwa', data:[141,549,210,238,21,48,0,0,349], backgroundColor:g, borderRadius:8, borderSkipped:false }] },
+      options:{
+        indexAxis:'y', responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false},
+          tooltip:{ backgroundColor:'#1e365a', titleFont:{family:OUTFIT,weight:'800'}, bodyFont:{family:OUTFIT,weight:'600'},
+                    callbacks:{ title:c=>c[0].label, label:c=>` ${c.raw} jiwa` } } },
+        scales:{ x:{ beginAtZero:true, grid:{color:'rgba(0,0,0,.06)'}, ticks:{color:'#1e365a',font:{family:OUTFIT}}, title:{display:true,text:'Jiwa',color:'#1e365a',font:{family:OUTFIT,weight:800}} },
+                 y:{ grid:{display:false}, ticks:{color:'#1e365a',font:{family:OUTFIT}}, title:{display:true,text:'Tingkat Pendidikan',color:'#1e365a',font:{family:OUTFIT,weight:800}} } }
+      }
+    });
+  })();
+
+  // ===== Data & warna sektor pekerjaan
+  const RAW_JOBS = [
+    {label:"Buruh Nelayan",value:158},{label:"Nelayan Pemilik Kapal",value:118},{label:"Lainnya",value:98},
+    {label:"Petani Pemilik Lahan",value:9},{label:"Pedagang",value:7},{label:"Perangkat Desa",value:7},
+    {label:"Buruh Tani",value:5},{label:"Nelayan Penyewa Perahu",value:4},{label:"PNS/ASN",value:4},
+    {label:"Petani Penyewa",value:3},{label:"TNI",value:3},{label:"Guru Non PNS",value:2}
+  ];
+  const PERIKANAN=new Set(["Buruh Nelayan","Nelayan Pemilik Kapal","Nelayan Penyewa Perahu"]);
+  const PERTANIAN=new Set(["Petani Pemilik Lahan","Petani Penyewa","Buruh Tani"]);
+  const JASA=new Set(["Pedagang","Perangkat Desa","PNS/ASN","Guru Non PNS","TNI"]);
+  const sectorOf = (n)=> PERIKANAN.has(n)?"Perikanan": PERTANIAN.has(n)?"Pertanian": JASA.has(n)?"Jasa & Profesional":"Lainnya";
+  const sectorGradients = {
+    "Perikanan":["#AFC3DD","#8DA6C6"],
+    "Pertanian":["#FFB8A9","#FF7E6D"],
+    "Jasa & Profesional":["#FFD5AD","#FFC48C"],
+    "Lainnya":["#D6DEE5","#9BA7B4"]
+  };
+  const wrapLabel = (t,m=16)=> t.length<=m?t:((w=t.split(" ")),(l=w.shift(),w.forEach((x,i)=>{if((l+" "+x).length<=m)l+=" "+x;else w.splice(0,i+1)})), l+"\n"+w.join(" "));
+  const JOBS = [...RAW_JOBS].sort((a,b)=>b.value-a.value);
+  const jobLabels = JOBS.map(d=>wrapLabel(d.label));
+  const jobValues = JOBS.map(d=>d.value);
+
+  // ===== Bar: Mata Pencaharian
+  (() => {
+    const el = document.getElementById('jobsBar'); if(!el) return;
+    const ctx = el.getContext('2d');
+    const makeGradient = (c,a,b)=>{const g=c.createLinearGradient(0,0,800,0); g.addColorStop(0,a); g.addColorStop(1,b); return g; };
+    const jobColors = JOBS.map(d=>{ const [l,k] = sectorGradients[sectorOf(d.label)]||["#E6E6E6","#8A8A8A"]; return makeGradient(ctx,l,k); });
+
+    // Legend sektor (bawah)
+    const sectorLegend = {
+      position:'bottom',
+      labels:{ color:'#1e365a', usePointStyle:true, pointStyle:'rectRounded', boxWidth:12, padding:14,
+        font:{family:OUTFIT,weight:800,size:13},
+        generateLabels(){
+          return Object.entries(sectorGradients).map(([name,[l,k]])=>({ text:name, fillStyle:makeGradient(ctx,l,k), strokeStyle:k, lineWidth:0, pointStyle:'rectRounded' }));
+        }
+      }, onClick:null
+    };
+
+    new Chart(ctx,{
+      type:'bar',
+      data:{ labels:jobLabels, datasets:[{ label:'Jumlah Jiwa', data:jobValues, backgroundColor:jobColors, borderWidth:0, borderRadius:8, barThickness:18 }] },
+      options:{
+        indexAxis:'y', responsive:true, maintainAspectRatio:false, layout:{padding:{right:28,left:6,top:6,bottom:8}},
+        plugins:{ legend:sectorLegend, tooltip:{ backgroundColor:'#0f2030', titleFont:{family:OUTFIT,weight:'800'}, bodyFont:{family:OUTFIT,weight:'600'},
+                  callbacks:{ label:(c)=>`${c.label.replaceAll('\n',' ')}: ${c.raw} jiwa` } } },
+        scales:{ x:{ beginAtZero:true, grid:{color:'rgba(0,0,0,.06)'}, ticks:{color:'#1e365a',font:{family:OUTFIT,size:12}}, title:{display:true,text:'Jiwa',color:'#1e365a',font:{family:OUTFIT,weight:800,size:13}} },
+                 y:{ grid:{display:false}, ticks:{color:'#1e365a',font:{family:OUTFIT,weight:800,size:12},autoSkip:false} } }
+      }
+    });
+  })();
+
+  // Legend statis untuk donut sektor (pakai warna muda)
+  const legendEl = document.getElementById('sectorLegend');
+  if(legendEl){
+    legendEl.innerHTML = Object.entries(sectorGradients).map(([n,[light]])=>`<span><i class="dot" style="background:${light};"></i>${n}</span>`).join('');
+  }
+
+  // ===== Donut: Sektor (Total 446)
+  (() => {
+    const dn = document.getElementById('sectorDonut'); if(!dn) return;
+    const ctx = dn.getContext('2d');
+    const makeGradient = (c,a,b)=>{const g=c.createLinearGradient(0,0,800,0); g.addColorStop(0,a); g.addColorStop(1,b); return g; };
+    new Chart(ctx,{
+      type:'doughnut',
+      data:{ labels:['Perikanan','Pertanian','Jasa & Profesional','Lainnya'],
+        datasets:[{ data:[280,17,121,98],
+          backgroundColor:[
+            makeGradient(ctx,'#AFC3DD','#8DA6C6'),
+            makeGradient(ctx,'#FFB8A9','#FF7E6D'),
+            makeGradient(ctx,'#FFD5AD','#FFC48C'),
+            makeGradient(ctx,'#D6DEE5','#9BA7B4')
+          ],
+          borderWidth:0 }] },
+      options:{ responsive:true, maintainAspectRatio:false, cutout:'68%', plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c=>`${c.label}: ${c.raw} jiwa` } } } }
+    });
+    const el = document.getElementById('donutTotal'); if(el) el.textContent = (446).toLocaleString('id-ID');
+  })();
+});
+</script>
+{% endblock %}

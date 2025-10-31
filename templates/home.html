@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin></script>
+<script src="https://unpkg.com/shpjs@latest/dist/shp.min.js"></script>
+
+<section class="home">
+  <img class="home-bg" src="{% static 'img/header.png' %}" alt="home"><div class="home-overlay"></div>
+  <svg class="home-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0,80 C240,20 480,140 720,80 C960,20 1200,120 1440,60 L1440,120 L0,120 Z"></path></svg>
+</section>
+
+<section class="container explore">
+  <div class="explore-text">
+    <h2>Desa Gaya Baru</h2>
+    <p class="kicker">Kec. Lapandewa, Kab. Buton Selatan</p>
+    <p>Desa Gaya Baru terbentang di pesisir selatan Pulau Buton, dalam wilayah Kecamatan Lapandewa, Kabupaten Buton Selatan, Sulawesi Tenggara. Dengan luas sekitar <b>9,25 km²</b> dan berada pada ketinggian ±50 meter di atas permukaan laut, desa ini terletak pada koordinat <b>5°40′50″ LS</b> dan <b>122°45′50″ BT</b>. Lanskapnya memadukan perbukitan hijau yang landai dengan garis pantai tropis yang tenang. Laut Flores membingkai sisi selatan desa, sementara di utara ia berpaut dengan Desa Gerak Makmur, dan di timur serta baratnya beriringan dengan desa-desa lain di Lapandewa.</p>
+  </div>
+</section>
+
+<section class="map-section" id="peta"><div class="container"><div class="map-frame"><div id="leaflet-osm"></div></div></div></section>
+
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  if (!window.L) return;
+
+  // pastikan shpjs siap tanpa mengubah output
+  const waitShp = () => new Promise(r => { if (window.shp) return r(); const i=setInterval(()=>{ if (window.shp){ clearInterval(i); r(); } },30); });
+  await waitShp();
+
+  const osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:20,attribution:"&copy; OpenStreetMap contributors"});
+  const map = L.map("leaflet-osm",{center:[-5.545,122.835],zoom:13,minZoom:5,maxZoom:18,layers:[osm],scrollWheelZoom:true});
+  L.control.scale({imperial:false}).addTo(map);
+
+  map.createPane("pane-busel"); map.getPane("pane-busel").style.zIndex = 500;
+  map.createPane("pane-gayabaru"); map.getPane("pane-gayabaru").style.zIndex = 510;
+
+  const buselStyle = {pane:"pane-busel",color:"#ff7e6d",weight:3,fillColor:"#ff7e6d",fillOpacity:.5};
+  const gayabaruStyle = {pane:"pane-gayabaru",color:"#3E6778",weight:3,fillColor:"#3E6778",fillOpacity:.5};
+
+  const buselZip = "{% static 'geo/busel.zip' %}";
+  const gayabaruZip = "{% static 'geo/gayabaru.zip' %}";
+
+  const loadZipAsGeoJSON = async (url) => {
+    const res = await fetch(url); if (!res.ok) throw new Error("Gagal fetch "+url);
+    return await shp(await res.arrayBuffer());
+  };
+
+  try {
+    const gjBusel = await loadZipAsGeoJSON(buselZip);
+    const layerBusel = L.geoJSON(gjBusel,{style:buselStyle,onEachFeature:(f,l)=>l.bindTooltip(f?.properties?.NAMOBJ||"",{sticky:true})}).addTo(map);
+    map.fitBounds(layerBusel.getBounds(),{padding:[18,18]});
+
+    const gjGayaBaru = await loadZipAsGeoJSON(gayabaruZip);
+    const layerGayaBaru = L.geoJSON(gjGayaBaru,{style:gayabaruStyle,onEachFeature:(f,l)=>l.bindTooltip(f?.properties?.NAMOBJ||"",{sticky:true})}).addTo(map);
+    layerGayaBaru.bringToFront();
+  } catch (err) { console.error("Gagal memuat shapefile:", err); }
+
+  setTimeout(()=>map.invalidateSize(),150);
+  window.addEventListener("resize",()=>map.invalidateSize());
+});
+</script>
+{% endblock %}

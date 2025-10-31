@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+<section class="contact-hero">
+  <div class="contact-grid">
+    <div class="contact-map" id="contact-map" aria-label="Lokasi Desa Gaya Baru"></div>
+    <article class="contact-card">
+      <h3>Informasi Kontak</h3>
+      <p class="lead">Silakan hubungi kami melalui kontak berikut.</p>
+      <div class="contact-lines">
+        <p><strong>Alamat</strong><br>Desa Gaya Baru, Kecamatan Lapandewa, Kabupaten Buton Selatan, Sulawesi Tenggara</p>
+        <p><strong>Telepon</strong><br><a href="https://wa.me/6281323642950" target="_blank" class="contact-link">+62 813 2364 2950</a></p>
+        <p><strong>Email</strong><br><a href="mailto:info@desagayabaru.id" class="contact-link">info@desagayabaru.id</a></p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="contact-form-wrap">
+  <h2>Kirim Pesan</h2>
+  <form class="contact-form" method="post" action="#">
+    {% csrf_token %}
+    <div class="form-row">
+      <input type="text" name="full_name" placeholder="Nama Lengkap" required>
+      <input type="email" name="email" placeholder="Alamat Email" required>
+    </div>
+    <div class="form-row">
+      <input type="tel" name="phone" placeholder="Nomor Telepon">
+      <input type="text" name="subject" placeholder="Subjek">
+    </div>
+    <textarea name="message" rows="6" placeholder="Tulis Pesan" required></textarea>
+    <button type="submit" class="btn-send">KIRIM PESAN</button>
+  </form>
+</section>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",()=> {
+  const pos=[-5.6603970155982255,122.76507140945692];
+  const map=L.map("contact-map",{center:pos,zoom:12,zoomControl:true,scrollWheelZoom:true,touchZoom:true,doubleClickZoom:true});
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"&copy; OpenStreetMap"}).addTo(map);
+  L.marker(pos).addTo(map).bindPopup("<b>Desa Gaya Baru</b>");
+  setTimeout(()=>map.invalidateSize(),100);
+});
+</script>
+{% endblock %}
