@@ -61,16 +61,6 @@
   .story .story-media.ink-b img{clip-path:url(#blobB)}
   .story .story-media.ink-c img{clip-path:url(#blobC)}
 
-  /* ===== FISH DECOR ===== */
-  .fish-layer.top{position:absolute;inset:0;z-index:2;pointer-events:none}
-  .fish-layer{position:relative;inset:0;z-index:2;pointer-events:none;overflow:visible}
-  .fish{position:absolute;width:clamp(38px,4.6vw,70px);height:auto;color:var(--teal-2);opacity:.85;filter:drop-shadow(0 6px 12px rgba(0,0,0,.08));animation-duration:var(--d,26s);animation-delay:var(--delay,0s)}
-  .fish.tiny{width:clamp(26px,3.2vw,46px);opacity:.8}
-  @keyframes swim-right{from{transform:translateX(-12vw) translateY(0)}50%{transform:translateX(54vw) translateY(-4px)}to{transform:translateX(120vw) translateY(0)}}
-  @keyframes swim-left{from{transform:translateX(112vw) scaleX(-1)}50%{transform:translateX(44vw) scaleX(-1) translateY(4px)}to{transform:translateX(-20vw) scaleX(-1)}}
-  .swim-r{animation:swim-right linear infinite}
-  .swim-l{animation:swim-left linear infinite}
-
   /* ===== “Hotel-rec” block reused untuk daftar budaya ===== */
   .hotel-rec{padding:clamp(28px,4vw,48px) 0 60px;background:var(--bg)}
   .hotel-rec .container{width:min(1100px,92%);margin:0 auto}
@@ -135,13 +125,6 @@
       <!-- Garis penghubung (digambar JS sederhana di bawah) -->
       <svg class="story-connectors" width="0" height="0" aria-hidden="true"></svg>
 
-      <!-- Dekor ikan (atas) -->
-      <div class="fish-layer top" aria-hidden="true">
-        <svg class="fish swim-l" style="top:3%" viewBox="0 0 64 32"><use href="#fish-full"/></svg>
-        <svg class="fish swim-r" style="top:8%" viewBox="0 0 64 32"><use href="#fish-full"/></svg>
-        <svg class="fish swim-r tiny" style="top:12%" viewBox="0 0 64 32"><use href="#fish-plain"/></svg>
-        <svg class="fish swim-l tiny" style="top:16%" viewBox="0 0 64 32"><use href="#fish-plain"/></svg>
-      </div>
 
       <!-- Story 1 -->
       <article class="story">
@@ -191,32 +174,6 @@
         <clipPath id="blobA" clipPathUnits="objectBoundingBox"><path d="M0.07,0.46 C0.12,0.20 0.33,0.04 0.56,0.06 C0.77,0.08 0.93,0.23 0.96,0.46 C0.99,0.69 0.86,0.90 0.64,0.96 C0.42,1.02 0.19,0.92 0.09,0.74 C0.03,0.63 0.04,0.53 0.07,0.46 Z"/></clipPath>
         <clipPath id="blobB" clipPathUnits="objectBoundingBox"><path d="M0.18,0.20 C0.36,0.04 0.64,0.04 0.82,0.20 C0.96,0.34 0.98,0.62 0.82,0.80 C0.66,0.98 0.34,0.98 0.18,0.80 C0.02,0.62 0.04,0.34 0.18,0.20 Z"/></clipPath>
         <clipPath id="blobC" clipPathUnits="objectBoundingBox"><path d="M0.10,0.48 C0.14,0.18 0.45,0.02 0.67,0.10 C0.85,0.17 0.96,0.35 0.96,0.52 C0.96,0.72 0.80,0.90 0.58,0.96 C0.36,1.02 0.18,0.92 0.10,0.76 C0.06,0.68 0.07,0.56 0.10,0.48 Z"/></clipPath>
-
-        <!-- fish symbols -->
-        <symbol id="fish-base" viewBox="0 0 64 32">
-          <path d="M8,16 L2,12 L2,20 Z" fill="currentColor"></path>
-          <ellipse cx="22" cy="16" rx="18" ry="10" fill="currentColor"></ellipse>
-        </symbol>
-        <symbol id="fish-full" viewBox="0 0 64 32">
-          <use href="#fish-base"></use>
-          <circle cx="31" cy="13" r="1.6" fill="#fff"></circle>
-        </symbol>
-        <symbol id="fish-plain" viewBox="0 0 64 32">
-          <use href="#fish-base"></use>
-        </symbol>
-      </defs>
-    </svg>
-
-    <!-- ===================== DEKOR IKAN (bawah) ===================== -->
-    <div class="fish-layer" aria-hidden="true">
-      <svg class="fish swim-r" style="top:50%" viewBox="0 0 64 32"><use href="#fish-full"/></svg>
-      <svg class="fish swim-r" style="top:62%" viewBox="0 0 64 32"><use href="#fish-full"/></svg>
-      <svg class="fish swim-l" style="top:30%" viewBox="0 0 64 32"><use href="#fish-full"/></svg>
-      <svg class="fish swim-l" style="top:74%" viewBox="0 0 64 32"><use href="#fish-full"/></svg>
-      <svg class="fish swim-r tiny" style="top:40%" viewBox="0 0 64 32"><use href="#fish-plain"/></svg>
-      <svg class="fish swim-l tiny" style="top:68%" viewBox="0 0 64 32"><use href="#fish-plain"/></svg>
-    </div>
-
     <!-- ===================== BLOK BUDAYA ===================== -->
     <section class="hotel-rec" id="hotel-rec">
       <div class="container">
