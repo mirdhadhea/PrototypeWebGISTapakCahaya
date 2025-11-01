@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>GeoVillage+</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <title>Tangan Berkarya — UMKM Desa Gaya Baru</title>
+  <meta name="description" content="UMKM Desa Gaya Baru: olahan pangan, kerajinan tangan, dan produk herbal lokal.">
+  <link rel="icon" href="./static/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <style>
 /* =============== FONT =============== */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
@@ -71,15 +71,15 @@ input,textarea,select,button{font:inherit}
 .pkg-intro p{margin:0 0 10px;color:#1e365a;font-size:clamp(14px,1.4vw,16px);line-height:1.7;text-align:justify}
 
 /* KELAS BG KARTU (pakai CSS var --bg) */
-.bg-mtb   { --bg: url("kagarai.png"); }
-.bg-rafting{ --bg: url("asap.png"); }
-.bg-cabin { --bg: url("bunga.png"); }
-.bg-guest { --bg: url("anyaman.png"); }
-.bg-suite { --bg: url("pandan.png"); }
-.bg-family{ --bg: url("madu.png"); }
-.bg-bike  { --bg: url("bawang.png"); }
-.bg-river { --bg: url("minyak.png"); }
-.bg-hike  { --bg: url("senga.png"); }
+.bg-mtb   { --bg: url("./static/img/kagarai.png"); }
+.bg-rafting{ --bg: url("./static/img/asap.png"); }
+.bg-cabin { --bg: url("./static/img/bunga.png"); }
+.bg-guest { --bg: url("./static/img/anyaman.png"); }
+.bg-suite { --bg: url("./static/img/pandan.png"); }
+.bg-family{ --bg: url("./static/img/madu.png"); }
+.bg-bike  { --bg: url("./static/img/bawang.png"); }
+.bg-river { --bg: url("./static/img/minyak.png"); }
+.bg-hike  { --bg: url("./static/img/senga.png"); }
 
 /* =============== MAP (LEAFLET) =============== */
 .map-section{padding:clamp(24px,3.2vw,36px) 0 0;background:transparent}
@@ -141,6 +141,17 @@ input,textarea,select,button{font:inherit}
       </nav>
     </div>
   </header>
+
+  <!-- =============== OPTIONAL HERO (bisa ganti foto) =============== -->
+  <section class="home" aria-label="Sampul">
+    <img class="home-bg" src="./static/img/hero-umkm.jpg" alt="Warga membuat produk UMKM di Desa Gaya Baru">
+    <div class="home-overlay"></div>
+    <div class="home-inner container">
+      <span class="eyebrow">Tangan Berkarya</span>
+      <h1>UMKM Desa Gaya Baru</h1>
+    </div>
+    <svg class="home-wave" viewBox="0 0 1440 320" aria-hidden="true"><path d="M0,64L60,96C120,128,240,192,360,181.3C480,171,600,85,720,80C840,75,960,149,1080,186.7C1200,224,1320,224,1380,224L1440,224L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"/></svg>
+  </section>
 
   <!-- ================= INTRO ================= -->
   <section class="pkg-intro">
