@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Warisan Abadi — Desa Gaya Baru</title>
+
+  <!-- FONT -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+
+  <style>
+  :root{
+    --bg:#7ba6ac;--ink:#ffe9c4;--teal:#ff7e6d;--teal-2:#ff7e6d;--white:#fff;
+    --muted:color-mix(in srgb,var(--ink)70%,var(--bg)30%);
+    --menu-edge-gap:14px;--header-xpad:8px;--menu-gap:42px;--logo-size:50px;--header-py:30px;--brand-left-gap:16px;
+    --footer-bg:#1e365a;--footer-max:min(1100px,92%);--footer-accent:#fff;--footer-text:#fff;
+    --story-max:min(1100px,92%);--story-media-w:clamp(380px,46vw,620px);--story-gap:clamp(12px,1.6vw,28px);
+    --img-overlap:clamp(-64px,-5vw,-24px);--text-overlap-right:clamp(-72px,-4.8vw,-32px);--text-overlap-left:clamp(-72px,-4.8vw,-32px)
+  }
+  *{box-sizing:border-box}*,*::before,*::after{font-family:inherit}
+  body{margin:0;font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+  .container{width:min(1100px,92%);margin-inline:auto}
+
+  /* ===== HEADER / NAV ===== */
+  .topbar{background:var(--footer-bg);color:var(--ink)}
+  .nav{display:flex;align-items:center;gap:10px;padding-block:var(--header-py);min-height:calc(var(--logo-size) + var(--header-py))}
+  .brand{display:flex;align-items:center;gap:8px;margin-left:var(--brand-left-gap)}
+  .logo{width:var(--logo-size);height:var(--logo-size);display:block}
+  .logo img{width:100%;height:100%;object-fit:contain;display:block}
+  .brand-text{line-height:1.05;font-weight:800;font-size:20px;color:var(--white)}
+  .menu{margin-left:auto;display:flex;align-items:center;gap:var(--menu-gap);padding-inline-end:var(--menu-edge-gap)}
+  .menu a{text-decoration:none;font-weight:700;padding:8px 0;font-size:16px;color:#fff}
+  .menu a:hover{opacity:.9}
+  .menu .cta{background:var(--teal-2);color:#fff;padding:10px 16px;border-radius:10px;border:1.5px solid var(--teal-2);box-shadow:0 6px 14px color-mix(in srgb,var(--teal-2)22%,#000 78%)}
+
+  /* ===== STORY SECTIONS ===== */
+  .story-hero.container{width:var(--story-max);margin:0 auto;padding:40px 0 16px}
+  .story-free{text-align:justify;width:min(1300px,96vw);margin:clamp(20px,5vw,44px) auto 0}
+  .story-free .free-copy{
+    background:#FFFDF7;border-radius:36px;box-shadow:0 14px 36px rgba(13,31,41,.10);
+    padding:clamp(20px,2vw,32px) clamp(28px,4vw,72px);color:var(--footer-bg);line-height:1.7;border:2px solid #3E6778
+  }
+  .stories{width:var(--story-max);margin:0 auto;display:grid;gap:clamp(12px,6vw,12px);position:relative;overflow:visible}
+  .story{display:grid;grid-template-columns:1.1fr 1fr;grid-template-areas:"media copy";align-items:center;row-gap:var(--story-gap)}
+  .story.is-alt{grid-template-columns:1fr 1.1fr;grid-template-areas:"copy media"}
+  .story .story-media{grid-area:media;position:relative;z-index:3;width:var(--story-media-w);aspect-ratio:16/10;justify-self:start;overflow:visible}
+  .story:not(.is-alt) .story-media{margin-right:var(--img-overlap)}
+  .story.is-alt .story-media{margin-left:var(--img-overlap);justify-self:end}
+  .story .story-media img{width:100%;height:100%;object-fit:cover;display:block;filter:drop-shadow(0 8px 18px rgba(0,0,0,.10))}
+  .story .story-copy{
+    grid-area:copy;position:relative;z-index:5;inline-size:clamp(44ch,56vw,76ch);
+    padding:clamp(18px,2.6vw,28px) clamp(22px,3.4vw,160px);
+    background:#FFFDF7;border-radius:36px;box-shadow:0 14px 36px rgba(13,31,41,.10);
+    color:var(--footer-bg);text-align:justify;text-justify:inter-word;hyphens:auto;border:2px solid #3E6778
+  }
+  .stories .story:nth-of-type(2) .story-copy{margin-right:var(--text-overlap-right)}
+  .stories .story:nth-of-type(3) .story-copy{margin-left:var(--text-overlap-left)!important}
+
+  /* clip blobs */
+  .story .story-media.ink-a img{clip-path:url(#blobA)}
+  .story .story-media.ink-b img{clip-path:url(#blobB)}
+  .story .story-media.ink-c img{clip-path:url(#blobC)}
+
+  /* ===== FISH DECOR ===== */
+  .fish-layer.top{position:absolute;inset:0;z-index:2;pointer-events:none}
+  .fish-layer{position:relative;inset:0;z-index:2;pointer-events:none;overflow:visible}
+  .fish{position:absolute;width:clamp(38px,4.6vw,70px);height:auto;color:var(--teal-2);opacity:.85;filter:drop-shadow(0 6px 12px rgba(0,0,0,.08));animation-duration:var(--d,26s);animation-delay:var(--delay,0s)}
+  .fish.tiny{width:clamp(26px,3.2vw,46px);opacity:.8}
+  @keyframes swim-right{from{transform:translateX(-12vw) translateY(0)}50%{transform:translateX(54vw) translateY(-4px)}to{transform:translateX(120vw) translateY(0)}}
+  @keyframes swim-left{from{transform:translateX(112vw) scaleX(-1)}50%{transform:translateX(44vw) scaleX(-1) translateY(4px)}to{transform:translateX(-20vw) scaleX(-1)}}
+  .swim-r{animation:swim-right linear infinite}
+  .swim-l{animation:swim-left linear infinite}
+
+  /* ===== “Hotel-rec” block reused untuk daftar budaya ===== */
+  .hotel-rec{padding:clamp(28px,4vw,48px) 0 60px;background:var(--bg)}
+  .hotel-rec .container{width:min(1100px,92%);margin:0 auto}
+  .rec-head{text-align:left;margin-bottom:clamp(20px,4vw,36px)}
+  .rec-head h2{margin:0 auto;text-align:center;font:800 clamp(18px,3.2vw,30px)/1.15 "Outfit",system-ui;color:#162b3b}
+  .rec-row{position:relative;display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:clamp(18px,3vw,40px);margin:clamp(20px,4vw,36px) 0}
+  .rec-row.right{grid-template-columns:1fr 1.05fr}
+  .rec-row.right .rec-card{order:2}
+  .rec-row.right .polaroid{order:1;justify-self:end}
+  .rec-card{background:#fff;border:1px solid var(--footer-bg);border-radius:14px;box-shadow:0 12px 28px rgba(13,31,41,.06);padding:clamp(18px,2.8vw,26px)}
+  .rec-card h3{margin:0 0 8px;font:800 clamp(16px,2.6vw,20px)/1.2 "Outfit",system-ui;color:var(--footer-bg)}
+  .rec-card p{margin:0 0 10px;color:var(--footer-bg);line-height:1.6;font-size:15px;text-align:justify}
+  .polaroid{justify-self:start;width:clamp(280px,45vw,420px);aspect-ratio:4/3;background:#fff;border-radius:12px;box-shadow:0 16px 34px rgba(0,0,0,.18);padding:12px 22px 18px;border:1px solid var(--footer-bg);position:relative;transition:transform .25s ease}
+  .polaroid:hover{transform:scale(1.05)}
+  .polaroid img{width:100%;height:100%;object-fit:cover;border-radius:8px;display:block}
+  .tilt-r{transform:rotate(7deg)}
+  .tilt-l{transform:rotate(-7deg)}
+
+  /* ===== FOOTER ===== */
+  .site-footer{position:relative;overflow:hidden;background:var(--footer-bg);color:#e4f1ef;padding-top:22px;margin-top:40px}
+  .footer-grid{width:var(--footer-max);margin-inline:auto;display:grid;grid-template-columns:1.2fr 1.05fr 1fr;gap:clamp(20px,3vw,48px);align-items:start;padding:28px 0}
+  .footer-brand{font-weight:800;font-size:clamp(28px,3.6vw,32px);line-height:1.08;margin:0 0 .75rem;color:#fff}
+  .footer-addr{margin:.35rem 0 0;color:#dfe7ef;line-height:1.65;max-width:38ch}
+  .footer-contact h4{margin:0 0 .65rem;color:#fff}
+  .contact-list{list-style:none;padding:0;margin:0 0 .85rem;display:grid;gap:.55rem}
+  .contact-list a{color:#fefefe;text-decoration:none;font-weight:600}
+  .contact-list a:hover{text-decoration:underline}
+  .footer-credits{padding:10px 0 18px;border-top:1px solid rgba(255,255,255,.12);text-align:center}
+  .footer-credits small{color:#fff}
+  </style>
+</head>
+<body>
+
+  <!-- ====== HEADER (standalone, tanpa Django) ====== -->
+  <header class="topbar">
+    <div class="container">
+      <nav class="nav" aria-label="Navigasi utama">
+        <a class="brand" href="./index.html" aria-label="Beranda">
+          <span class="logo"><img src="./static/img/logo.png" alt="Logo Desa Gaya Baru"></span>
+          <span class="brand-text">Desa Gaya Baru</span>
+        </a>
+        <div class="menu" role="menubar">
+          <a href="./index.html" role="menuitem">Beranda</a>
+          <a href="./pelukan_alam.html" role="menuitem">Pelukan Alam</a>
+          <a href="./tangan_berkarya.html" role="menuitem">Tangan Berkarya</a>
+          <a href="./warisan_abadi.html" aria-current="page" role="menuitem">Warisan Abadi</a>
+          <a class="cta" href="./sapa_kami.html" role="menuitem">Sapa Kami</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <!-- ===================== TEKS AWAL ===================== -->
+    <section class="story-free">
+      <div class="free-copy">
+        <p>Di pesisir selatan Pulau Buton, di mana Laut Flores memeluk daratan dengan lembut, berdirilah Desa Gaya Baru, sebuah perkampungan yang tumbuh dari laut, sejarah, dan budaya. Di sinilah jejak masa lampau masih berbisik di antara batu karang, dihembuskan angin utara, dan disimpan dalam ingatan masyarakat yang hidup bersahaja.</p>
+      </div>
+    </section>
+
+    <!-- ===================== STORIES ===================== -->
+    <section class="stories">
+      <!-- Garis penghubung (digambar JS sederhana di bawah) -->
+      <svg class="story-connectors" width="0" height="0" aria-hidden="true"></svg>
+
+      <!-- Dekor ikan (atas) -->
+      <div class="fish-layer top" aria-hidden="true">
+        <svg class="fish swim-l" style="top:3%" viewBox="0 0 64 32"><use href="#fish-full"/></svg>
+        <svg class="fish swim-r" style="top:8%" viewBox="0 0 64 32"><use href="#fish-full"/></svg>
+        <svg class="fish swim-r tiny" style="top:12%" viewBox="0 0 64 32"><use href="#fish-plain"/></svg>
+        <svg class="fish swim-l tiny" style="top:16%" viewBox="0 0 64 32"><use href="#fish-plain"/></svg>
+      </div>
+
+      <!-- Story 1 -->
+      <article class="story">
+        <figure class="story-media ink ink-a">
+          <img src="./static/img/kesultanan.png" alt="Ilustrasi Kesultanan Buton" loading="lazy" decoding="async">
+        </figure>
+        <div class="story-copy">
+          <p>Dahulu, wilayah ini berada di bawah naungan Kesultanan Buton, kerajaan maritim yang mengatur pelayaran, perdagangan, dan tata kehidupan di pulau-pulau sekitarnya.</p>
+        </div>
+      </article>
+
+      <!-- Story 2 -->
+      <article class="story is-alt">
+        <figure class="story-media ink ink-b">
+          <img src="./static/img/rudat.png" alt="Ritual dan tata sosial Buton" loading="lazy" decoding="async">
+        </figure>
+        <div class="story-copy stick-right">
+          <p>Di balik tembok benteng, lahir tatanan sosial berakar kuat pada adat. Para bangsawan, tokoh adat, dan pemimpin kampung menjaga nilai, menyampaikan perintah sultan, dan mengajarkan kehormatan pada generasi berikutnya.</p>
+          <p>Pengaruh Kesultanan meresap ke keseharian: bahasa, pakaian, hingga musyawarah mencerminkan nilai luhur leluhur. Adat menjadi tiang harmoni, laut menjadi panggung kehidupan.</p>
+        </div>
+      </article>
+
+      <!-- Story 3 -->
+      <article class="story">
+        <figure class="story-media ink ink-c">
+          <img src="./static/img/pelaut.png" alt="Para pelaut Desa Gaya Baru" loading="lazy" decoding="async">
+        </figure>
+        <div class="story-copy stick-left">
+          <p>Setiap pagi, lelaki Gaya Baru mengarahkan perahu ke Laut Flores. Ombak menjadi sahabat menuju sumber rezeki; di darat, perempuan menjemur hasil laut dan menjaga rumah tetap bernyawa oleh aroma asin angin.</p>
+          <p>Adat dan laut menyatu: doa sebelum melaut, gotong royong membangun perahu, musik dan tarian sebagai syukur. Gaya Baru bukan sekadar tempat, melainkan kisah yang hidup.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===================== TEKS AKHIR ===================== -->
+    <section class="story-free">
+      <div class="free-copy">
+        <p>Di sepanjang pantai dan perbukitan Lapandewa, masih tersisa jejak masa lalu—batu tua, sisa pemukiman, dan toponimi yang merekam hubungan manusia dengan kerajaan. Dari sanalah rasa bangga warga tumbuh sebagai bagian sejarah panjang Buton Selatan: laut sebagai nadi, adat sebagai arah.</p>
+        <p>Setiap ombak seolah membawa pesan lampau: keteguhan, kebersamaan, dan cinta tanah. Di sini, waktu tidak sekadar berlalu, tetapi menetap sebagai cerita—di antara karang, di dada nelayan, di ingatan tetua, dan di hati anak-anak pesisir.</p>
+      </div>
+    </section>
+
+    <!-- ===================== DEFINISI CLIP-PATH & SYMBOL (sekali, reusable) ===================== -->
+    <svg width="0" height="0" style="position:absolute">
+      <defs>
+        <!-- clip-path blobs -->
+        <clipPath id="blobA" clipPathUnits="objectBoundingBox"><path d="M0.07,0.46 C0.12,0.20 0.33,0.04 0.56,0.06 C0.77,0.08 0.93,0.23 0.96,0.46 C0.99,0.69 0.86,0.90 0.64,0.96 C0.42,1.02 0.19,0.92 0.09,0.74 C0.03,0.63 0.04,0.53 0.07,0.46 Z"/></clipPath>
+        <clipPath id="blobB" clipPathUnits="objectBoundingBox"><path d="M0.18,0.20 C0.36,0.04 0.64,0.04 0.82,0.20 C0.96,0.34 0.98,0.62 0.82,0.80 C0.66,0.98 0.34,0.98 0.18,0.80 C0.02,0.62 0.04,0.34 0.18,0.20 Z"/></clipPath>
+        <clipPath id="blobC" clipPathUnits="objectBoundingBox"><path d="M0.10,0.48 C0.14,0.18 0.45,0.02 0.67,0.10 C0.85,0.17 0.96,0.35 0.96,0.52 C0.96,0.72 0.80,0.90 0.58,0.96 C0.36,1.02 0.18,0.92 0.10,0.76 C0.06,0.68 0.07,0.56 0.10,0.48 Z"/></clipPath>
+
+        <!-- fish symbols -->
+        <symbol id="fish-base" viewBox="0 0 64 32">
+          <path d="M8,16 L2,12 L2,20 Z" fill="currentColor"></path>
+          <ellipse cx="22" cy="16" rx="18" ry="10" fill="currentColor"></ellipse>
+        </symbol>
+        <symbol id="fish-full" viewBox="0 0 64 32">
+          <use href="#fish-base"></use>
+          <circle cx="31" cy="13" r="1.6" fill="#fff"></circle>
+        </symbol>
+        <symbol id="fish-plain" viewBox="0 0 64 32">
+          <use href="#fish-base"></use>
+        </symbol>
+      </defs>
+    </svg>
+
+    <!-- ===================== DEKOR IKAN (bawah) ===================== -->
+    <div class="fish-layer" aria-hidden="true">
+      <svg class="fish swim-r" style="top:50%" viewBox="0 0 64 32"><use href="#fish-full"/></svg>
+      <svg class="fish swim-r" style="top:62%" viewBox="0 0 64 32"><use href="#fish-full"/></svg>
+      <svg class="fish swim-l" style="top:30%" viewBox="0 0 64 32"><use href="#fish-full"/></svg>
+      <svg class="fish swim-l" style="top:74%" viewBox="0 0 64 32"><use href="#fish-full"/></svg>
+      <svg class="fish swim-r tiny" style="top:40%" viewBox="0 0 64 32"><use href="#fish-plain"/></svg>
+      <svg class="fish swim-l tiny" style="top:68%" viewBox="0 0 64 32"><use href="#fish-plain"/></svg>
+    </div>
+
+    <!-- ===================== BLOK BUDAYA ===================== -->
+    <section class="hotel-rec" id="hotel-rec">
+      <div class="container">
+        <div class="rec-head">
+          <h2>Berbagai aspek budaya berikut mencerminkan kehidupan sosial dan nilai-nilai adat yang masih dipertahankan oleh masyarakat Desa Gaya Baru.</h2>
+        </div>
+
+        <div class="rec-row">
+          <div class="rec-card">
+            <h3>Etnis Burangasi</h3>
+            <p>Desa Gaya Baru merupakan bagian dari komunitas budaya Etnis Burangasi, sub-etnis Cia-Cia dalam rumpun Suku Buton. Mereka memiliki kekayaan tradisi, bahasa daerah, dan sistem adat sendiri yang diwariskan secara turun-temurun. Identitas ini masih sangat kuat dalam kehidupan sehari-hari warga, tercermin dari penggunaan bahasa Cia-Cia dialek Lapandewa, pemeliharaan struktur adat, serta praktik budaya yang aktif dilestarikan hingga kini.</p>
+          </div>
+          <figure class="polaroid tilt-r">
+            <img src="./static/img/etnis.png" alt="Etnis Burangasi" loading="lazy" decoding="async">
+          </figure>
+        </div>
+
+        <div class="rec-row right">
+          <div class="rec-card">
+            <h3>Kamali</h3>
+            <p>Dalam struktur sosial tradisional Buton, terdapat arsitektur adat yang mencerminkan status dan fungsi masyarakat, yaitu Kamali (juga dikenal sebagai Malige). Kamali adalah rumah adat berbentuk panggung tanpa paku, biasanya diperuntukkan bagi bangsawan atau pemimpin adat. Di komunitas Burangasi, bentuk rumah panggung ini masih menjadi inspirasi pembangunan Baruga (balai adat), yang digunakan sebagai pusat musyawarah dan pelaksanaan ritual.</p>
+          </div>
+          <figure class="polaroid tilt-l">
+            <img src="./static/img/rumah.png" alt="Rumah adat Kamali" loading="lazy" decoding="async">
+          </figure>
+        </div>
+
+        <div class="rec-row">
+          <div class="rec-card">
+            <h3>Ma’acia Burangasi</h3>
+            <p>Ma’acia adalah pesta adat terbesar bagi masyarakat Burangasi. Dilaksanakan setiap tahun, Ma’acia merupakan bentuk syukur atas limpahan rezeki dan ajang silaturahmi antarwarga, baik yang tinggal di desa maupun perantauan. Rangkaian acara meliputi musyawarah adat, tari-tarian tradisional, dan jamuan bersama. Ma’acia bukan sekadar perayaan, tetapi juga bentuk nyata pelestarian nilai gotong royong, penghormatan kepada leluhur, dan penguatan identitas budaya.</p>
+          </div>
+          <figure class="polaroid tilt-r">
+            <img src="./static/img/pesta.png" alt="Ma’acia Burangasi" loading="lazy" decoding="async">
+          </figure>
+        </div>
+
+        <div class="rec-row right">
+          <div class="rec-card">
+            <h3>Tari Linda</h3>
+            <p>Tari Linda atau Ngibi merupakan tarian klasik perempuan Buton yang mengekspresikan kelembutan, keanggunan, dan kesantunan. Gerakan yang gemulai mencerminkan nilai-nilai perempuan adat: malu, hormat, dan halus tutur. Di Gaya Baru, tarian ini kerap ditampilkan dalam acara pingitan remaja putri, penyambutan tamu, hingga pertunjukan budaya. Tari Linda menjadi simbol kecantikan dalam kesederhanaan masyarakat pesisir Buton.</p>
+          </div>
+          <figure class="polaroid tilt-l">
+            <img src="./static/img/tari.png" alt="Tari Linda/Ngibi" loading="lazy" decoding="async">
+          </figure>
+        </div>
+
+        <div class="rec-row">
+          <div class="rec-card">
+            <h3>Silat Tradisional Buton (Manca)</h3>
+            <p>Manca adalah seni bela diri tradisional Buton yang berkembang di komunitas Gaya Baru. Selain sebagai pertahanan diri, Manca juga menjadi bagian dari pertunjukan budaya dan simbol ketangkasan pria dalam adat. Gerakannya menggabungkan teknik bela diri dan tarian, dan kerap ditampilkan bersama Tari Mangaru dalam acara penyambutan, Ma’acia, maupun pelatihan seni bela diri lokal.</p>
+          </div>
+          <figure class="polaroid tilt-r">
+            <img src="./static/img/silat.png" alt="Silat Manca" loading="lazy" decoding="async">
+          </figure>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Desa Gaya Baru</div>
+        <p class="footer-addr">Kecamatan Lapandewa, Kabupaten Buton Selatan, Sulawesi Tenggara.</p>
+      </div>
+      <div class="footer-contact">
+        <h4>Kontak</h4>
+        <ul class="contact-list">
+          <li><a href="mailto:desa.gayabaru@example.id">desa.gayabaru@example.id</a></li>
+          <li><a href="https://wa.me/6281234567890">WhatsApp: 0812-3456-7890</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Jelajah</h4>
+        <ul class="contact-list">
+          <li><a href="./pelukan_alam.html">Pelukan Alam</a></li>
+          <li><a href="./tangan_berkarya.html">Tangan Berkarya</a></li>
+          <li><a href="./warisan_abadi.html">Warisan Abadi</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-credits">
+      <small>&copy; <span id="y"></span> Desa Gaya Baru — All rights reserved.</small>
+    </div>
+  </footer>
+
+  <!-- ===== Simple JS: tahun footer + garis konektor antar story ===== -->
+  <script>
+    // Tahun footer
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Garis penghubung sederhana antar .story-media dan .story-copy
+    (function drawConnectors(){
+      const stories = document.querySelectorAll('.stories .story');
+      const svg = document.querySelector('.story-connectors');
+      if(!svg || !stories.length) return;
+
+      // set ukuran svg sebesar section stories
+      const wrap = document.querySelector('.stories');
+      const rect = wrap.getBoundingClientRect();
+      svg.setAttribute('width', rect.width);
+      svg.setAttribute('height', wrap.scrollHeight);
+      svg.style.position = 'absolute';
+      svg.style.left = '0';
+      svg.style.top  = '0';
+
+      // hapus konten lama
+      svg.innerHTML = '';
+
+      stories.forEach((s, i) => {
+        const media = s.querySelector('.story-media');
+        const copy  = s.querySelector('.story-copy');
+        if(!media || !copy) return;
+
+        const m = media.getBoundingClientRect();
+        const c = copy.getBoundingClientRect();
+
+        const x1 = (m.left + m.right)/2 - rect.left;
+        const y1 = (m.top  + m.bottom)/2 - rect.top + window.scrollY;
+        const x2 = (c.left + c.right)/2 - rect.left;
+        const y2 = (c.top  + c.bottom)/2 - rect.top + window.scrollY;
+
+        const mx = (x1 + x2)/2;
+        const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+        path.setAttribute('d', `M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`);
+        path.setAttribute('fill','none');
+        path.setAttribute('stroke','rgba(30,54,90,.35)');
+        path.setAttribute('stroke-width','2');
+        path.setAttribute('stroke-linecap','round');
+        path.setAttribute('stroke-linejoin','round');
+        svg.appendChild(path);
+      });
+    })();
+
+    // Redraw on resize
+    window.addEventListener('resize', () => {
+      clearTimeout(window.__reC__);
+      window.__reC__ = setTimeout(()=> {
+        // trigger ulang
+        const svg = document.querySelector('.story-connectors');
+        if(svg){ svg.setAttribute('width', 0); svg.setAttribute('height', 0); }
+        (function(){ const evt = new Event('DOMContentLoaded'); document.dispatchEvent(evt); })();
+      }, 200);
+    });
+  </script>
+</body>
+</html>
