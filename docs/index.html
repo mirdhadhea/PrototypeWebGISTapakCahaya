@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>GeoVillage+ - Beranda</title>
 
-  <link rel="stylesheet" href="./static/css/styles.css" />
+  <link rel="stylesheet" href="static/css/styles.css" />
 
   <!-- Leaflet & shpjs -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin>
@@ -16,7 +16,7 @@
   <header class="topbar">
     <div class="container nav">
       <div class="brand">
-        <span class="logo"><img src="./static/img/busel.png" alt="Busel" /></span>
+        <span class="logo"><img src="static/img/busel.png" alt="Busel" /></span>
         <div class="brand-text"><strong>Kabupaten</strong><br>Buton<br>Selatan</div>
       </div>
       <nav class="menu">
@@ -32,7 +32,7 @@
 
   <!-- ======== KONTEN HOME ======== -->
   <section class="home">
-    <img class="home-bg" src="./static/img/header.png" alt="home">
+    <img class="home-bg" src="static/img/header.png" alt="home">
     <div class="home-overlay"></div>
     <svg class="home-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
       <path d="M0,80 C240,20 480,140 720,80 C960,20 1200,120 1440,60 L1440,120 L0,120 Z"></path>
@@ -110,8 +110,8 @@
     const gayabaruStyle = {pane:"pane-gayabaru",color:"#3E6778",weight:3,fillColor:"#3E6778",fillOpacity:.5};
 
     // ZIP shapefile ditempatkan di docs/static/geo/
-    const buselZip = "./static/geo/busel.zip";
-    const gayabaruZip = "./static/geo/gayabaru.zip";
+    const buselZip = "static/geo/busel.zip";
+    const gayabaruZip = "static/geo/gayabaru.zip";
 
     const loadZipAsGeoJSON = async (url) => {
       const res = await fetch(url); if (!res.ok) throw new Error("Gagal fetch "+url);
