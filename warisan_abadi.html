@@ -21,17 +21,17 @@
   body{margin:0;font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
   .container{width:min(1100px,92%);margin-inline:auto}
 
-  /* ===== HEADER / NAV ===== */
-  .topbar{background:var(--footer-bg);color:var(--ink)}
-  .nav{display:flex;align-items:center;gap:10px;padding-block:var(--header-py);min-height:calc(var(--logo-size) + var(--header-py))}
-  .brand{display:flex;align-items:center;gap:8px;margin-left:var(--brand-left-gap)}
-  .logo{width:var(--logo-size);height:var(--logo-size);display:block}
-  .logo img{width:100%;height:100%;object-fit:contain;display:block}
-  .brand-text{line-height:1.05;font-weight:800;font-size:20px;color:var(--white)}
-  .menu{margin-left:auto;display:flex;align-items:center;gap:var(--menu-gap);padding-inline-end:var(--menu-edge-gap)}
-  .menu a{text-decoration:none;font-weight:700;padding:8px 0;font-size:16px;color:#fff}
-  .menu a:hover{opacity:.9}
-  .menu .cta{background:var(--teal-2);color:#fff;padding:10px 16px;border-radius:10px;border:1.5px solid var(--teal-2);box-shadow:0 6px 14px color-mix(in srgb,var(--teal-2)22%,#000 78%)}
+ /* ======= HEADER / NAV (persis index) ======= */
+.topbar{background:#1e365a;color:var(--ink)}
+.topbar .container{width:100%;margin:0;padding:0 var(--header-xpad)}
+.nav{display:flex;align-items:center;gap:10px;padding-block:var(--header-py);min-height:calc(var(--logo-size) + var(--header-py))}
+.brand{display:flex;align-items:center;gap:8px;flex:0 0 auto;margin-left:var(--brand-left-gap)}
+.logo{width:var(--logo-size);height:var(--logo-size);display:block}
+.logo img{width:100%;height:100%;object-fit:contain;display:block}
+.brand-text{line-height:1.05;font-weight:700;font-size:20px;color:var(--footer-accent)!important}
+.menu{margin-left:auto;display:flex;align-items:center;justify-content:flex-end;gap:var(--menu-gap);flex-wrap:nowrap;padding-inline-end:var(--menu-edge-gap)}
+.menu a{text-decoration:none;font-weight:700;padding:8px 0;font-size:16px;color:var(--footer-accent)!important}
+.menu a:hover{color:#fff!important}
 
   /* ===== STORY SECTIONS ===== */
   .story-hero.container{width:var(--story-max);margin:0 auto;padding:40px 0 16px}
