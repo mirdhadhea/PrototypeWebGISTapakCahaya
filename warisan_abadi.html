@@ -79,6 +79,30 @@
   .tilt-r{transform:rotate(7deg)}
   .tilt-l{transform:rotate(-7deg)}
 
+    /* ==== PATCH SKALA & RESPONSIVE STORY ==== */
+:root{
+  /* Kecilkan lebar gambar & jarak overlap */
+  --story-media-w: clamp(300px, 40vw, 500px);
+  --img-overlap: clamp(-40px, -3.5vw, -18px);
+  --text-overlap-right: clamp(-40px, -3.5vw, -18px);
+  --text-overlap-left: clamp(-40px, -3.5vw, -18px);
+}
+
+/* Kartu kopi jangan terlalu panjang */
+.story .story-copy{
+  inline-size: clamp(42ch, 48vw, 64ch);
+  padding: clamp(16px,2.2vw,24px) clamp(18px,3vw,56px);
+}
+
+/* Gambar agak tinggi supaya ovalnya pas */
+.story .story-media{ aspect-ratio: 16/11; }
+.story .story-media img{ object-position: center 28%; }
+
+  .story .story-media{ justify-self:center; margin:0; }
+  .stories .story:nth-of-type(2) .story-copy,
+  .stories .story:nth-of-type(3) .story-copy{ margin:0 !important; }
+}
+
   /* ===== FOOTER ===== */
   .site-footer{position:relative;overflow:hidden;background:var(--footer-bg);color:#e4f1ef;padding-top:22px;margin-top:40px}
   .footer-grid{width:var(--footer-max);margin-inline:auto;display:grid;grid-template-columns:1.2fr 1.05fr 1fr;gap:clamp(20px,3vw,48px);align-items:start;padding:28px 0}
