@@ -5,118 +5,159 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pelukan Alam — Desa Gaya Baru</title>
 
-<!-- Font -->
+<!-- FONT -->
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 
-<!-- Swiper & Leaflet CSS -->
+<!-- SWIPER & LEAFLET -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin>
 <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css">
 
 <style>
+/* ==== TOKENS (sama dengan index) ==== */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 :root{
-  --bg:#7ba6ac;--ink:#ffe9c4;--teal:#ff7e6d;
-  --footer-bg:#1e365a;--footer-accent:#fff;
+  --bg:#7ba6ac;--ink:#ffe9c4;--teal:#ff7e6d;--teal-2:#ff7e6d;--white:#fff;
+  --muted:color-mix(in srgb,var(--ink)70%,var(--bg)30%);
+  --menu-edge-gap:14px;--header-xpad:8px;--menu-gap:42px;--logo-size:50px;--header-py:30px;--brand-left-gap:16px;
+  --footer-bg:#1e365a;--footer-max:min(1100px,92%);--footer-accent:#fff;--footer-text:#fff;
+  --story-max:min(1100px,92%);--story-media-w:clamp(380px,46vw,620px);--story-gap:clamp(12px,1.6vw,28px);
+  --img-overlap:clamp(-64px,-5vw,-24px);--text-overlap-right:clamp(-72px,-4.8vw,-32px);--text-overlap-left:clamp(-72px,-4.8vw,-32px)
 }
 *{box-sizing:border-box}
-body{margin:0;font-family:"Outfit",system-ui,sans-serif;color:var(--ink);background:var(--bg)}
-a{text-decoration:none;color:inherit}
-img{max-width:100%;display:block}
+*,*::before,*::after{font-family:inherit}
+body{margin:0;font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+input,textarea,select,button{font:inherit}
+.container{width:min(1100px,92%);margin-inline:auto}
 
-/* ===== Header ===== */
-header.topbar{background:var(--footer-bg);color:var(--ink);padding:18px 0}
-.nav{width:min(1100px,92%);margin:auto;display:flex;align-items:center;gap:14px}
-.brand{display:flex;align-items:center;gap:10px}
-.logo{width:50px;height:50px}
-.logo img{width:100%;height:100%;object-fit:contain}
-.brand-text{color:#fff;font-weight:800;font-size:20px;line-height:1.1}
-.menu{margin-left:auto;display:flex;gap:24px;align-items:center}
-.menu a{color:#fff;font-weight:700}
-.menu a:hover{opacity:.85}
-.menu .cta{background:var(--teal);padding:10px 14px;border-radius:10px;box-shadow:0 6px 14px rgba(0,0,0,.22)}
+/* ======= HEADER / NAV (copy dari index) ======= */
+.topbar{background:#1e365a;color:var(--ink)}
+.topbar .container{width:100%;margin:0;padding:0 var(--header-xpad)}
+.nav{display:flex;align-items:center;gap:10px;padding-block:var(--header-py);min-height:calc(var(--logo-size) + var(--header-py))}
+.brand{display:flex;align-items:center;gap:8px;flex:0 0 auto;margin-left:var(--brand-left-gap)}
+.logo{width:var(--logo-size);height:var(--logo-size);display:block}
+.logo img{width:100%;height:100%;object-fit:contain;display:block}
+.brand-text{line-height:1.05;font-weight:700;font-size:20px;color:var(--footer-accent)!important}
+.menu{margin-left:auto;display:flex;align-items:center;justify-content:flex-end;gap:var(--menu-gap);flex-wrap:nowrap;padding-inline-end:var(--menu-edge-gap)}
+.menu a{text-decoration:none;font-weight:700;padding:8px 0;font-size:16px;color:var(--footer-accent)!important}
+.menu a:hover{color:#fff!important}
+.menu .cta{background:var(--teal-2);color:#fff;padding:10px 16px;border-radius:10px;border:1.5px solid var(--teal-2);box-shadow:0 6px 14px color-mix(in srgb,var(--teal-2)22%,#000 78%)}
 
-/* ===== Slider ===== */
-.pelukan-alam{position:relative;width:100%;padding:clamp(12px,2vw,24px) 0}
-.pelukan-slider{width:min(1200px,96%);height:clamp(68vh,78vh,82vh);margin:auto}
+/* ====== SLIDER (konten kamu) ====== */
+.pelukan-alam{position:relative;width:100%;padding:clamp(12px,2vw,24px) 0;background:var(--bg)}
+.pelukan-slider{width:min(1200px,96%);height:clamp(68vh,78vh,82vh);margin-inline:auto}
 .swiper-slide{position:relative;width:clamp(240px,36vw,540px);height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:18px}
-.swiper-slide img{width:100%;height:100%;object-fit:cover;filter:brightness(82%)}
-.swiper-slide::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.55))}
-.slide-caption{position:absolute;bottom:14%;left:50%;transform:translateX(-50%);text-align:center;color:#fff;padding:.9rem 1.4rem;border-radius:14px;background:rgba(0,0,0,.28);backdrop-filter:blur(4px);max-width:min(86%,680px)}
-.slide-caption h2{margin:0 0 .25rem;font-weight:800;font-size:clamp(26px,4.2vw,54px)}
-.slide-caption p{margin:0;font-size:clamp(14px,1.3vw,18px);opacity:.96}
-.swiper-button-prev,.swiper-button-next{width:56px;height:56px;border-radius:999px;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.45);color:#fff}
-.swiper-pagination-bullet{background:rgba(255,255,255,.45);opacity:1}
-.swiper-pagination-bullet-active{background:#fff;width:36px;border-radius:999px}
+.swiper-slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.02);filter:brightness(82%)}
+.swiper-slide::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.10) 0%,rgba(0,0,0,.25) 38%,rgba(0,0,0,.55) 100%);pointer-events:none}
+.slide-caption{position:absolute;z-index:2;bottom:14%;left:50%;transform:translateX(-50%);text-align:center;color:#fff;padding:.9rem 1.4rem;border-radius:14px;background:rgba(0,0,0,.28);backdrop-filter:blur(4px);max-width:min(86%,680px)}
+.slide-caption h2{margin:0 0 .25rem;font-weight:800;letter-spacing:.4px;font-size:clamp(26px,4.2vw,54px);line-height:1.05}
+.slide-caption p{margin:0;font-size:clamp(14px,1.3vw,18px);line-height:1.6;opacity:.96}
+.pelukan-slider .swiper-pagination{position:absolute;left:0;right:0;bottom:clamp(14px,3vh,22px);display:flex;justify-content:center;align-items:center;gap:10px}
+.pelukan-slider .swiper-pagination-bullet{width:10px;height:10px;background:rgba(255,255,255,.45);opacity:1;border-radius:999px;transition:width .22s ease,background .22s ease,opacity .22s ease}
+.pelukan-slider .swiper-pagination-bullet.swiper-pagination-bullet-active{width:36px;height:12px;background:#fff;opacity:1;border-radius:999px}
+.pelukan-slider .swiper-button-prev,.pelukan-slider .swiper-button-next{position:absolute;top:50%;translate:0 -50%;z-index:5;width:56px;height:56px;border-radius:999px;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.45);box-shadow:none;color:#fff;display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(2px);transition:background .2s ease,border-color .2s ease,transform .2s ease}
+.pelukan-slider .swiper-button-prev{left:clamp(10px,2.2vw,26px)}
+.pelukan-slider .swiper-button-next{right:clamp(10px,2.2vw,26px)}
+.pelukan-slider .swiper-button-prev::after,.pelukan-slider .swiper-button-next::after{font-size:18px;font-weight:900}
+.pelukan-slider .swiper-button-prev:hover,.pelukan-slider .swiper-button-next:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.6)}
 
-/* ===== Intro ===== */
-.intro-wisata{width:min(900px,92%);margin:40px auto;text-align:center;color:#1E365A;font-weight:600;font-size:clamp(18px,2vw,22px);line-height:1.8}
+/* ====== Intro kalimat ====== */
+.intro-wisata{width:min(900px,92%);margin:clamp(24px,4vw,42px) auto;text-align:center;color:#1E365A;font:600 clamp(22px,2.6vw,24px)/1.55 "Outfit",system-ui;background:radial-gradient(ellipse at top center,rgba(255,255,255,0.25) 0%,rgba(255,255,255,0) 70%)}
+.intro-wisata p{margin:0;font-weight:600;letter-spacing:.3px;font-size:clamp(18px,2vw,22px);line-height:1.8;color:#1E365A;position:relative}
 
-/* ===== Kartu ===== */
-.stay-list{width:min(1200px,96%);margin:50px auto;padding:30px;border-radius:22px;background:rgba(123,166,172,.55);backdrop-filter:blur(8px);box-shadow:0 18px 48px rgba(0,0,0,.14)}
-.stay-title{text-align:center;margin-bottom:20px;font-weight:900;font-size:clamp(26px,3.6vw,36px);color:#1E365A;background:#fff;padding:10px 28px;border-radius:14px;display:inline-block}
-.alam-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
-.alam-card{background:#fff;border-radius:18px;box-shadow:0 8px 18px rgba(0,0,0,.06);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s ease}
-.alam-card:hover{transform:translateY(-2px)}
-.alam-media{width:100%;aspect-ratio:16/11;object-fit:cover}
-.alam-body{padding:14px 16px}
-.alam-name{margin:0 0 8px;font-weight:800;color:#1E365A}
-.alam-sub{background:#FF7E6D;color:#fff;padding:10px 14px;border-radius:12px;font-size:14px;line-height:1.5;text-align:justify}
+/* ====== Kartu ====== */
+.stay-list{position:relative;width:min(1200px,96%);margin:clamp(32px,4vw,56px) auto;padding:clamp(22px,3vw,34px);border-radius:22px;background:rgba(123,166,172,0.55);border:2px solid rgba(255,255,255,.20);box-shadow:0 18px 48px rgba(0,0,0,.14);backdrop-filter:blur(8px) saturate(120%)}
+.stay-list .container{width:min(1050px,92%);margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:clamp(16px,2vw,22px)}
+.stay-title{display:inline-block;text-align:center;margin:2px 0 12px;padding:10px 28px;font:900 clamp(26px,3.6vw,36px)/1.2 "Outfit",system-ui;letter-spacing:.3px;color:#1E365A;background:#fff;border-radius:14px;box-shadow:0 6px 12px rgba(0,0,0,.08);border:1px solid #3E6778}
+.alam-grid{width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.8vw,22px);align-items:stretch}
+.alam-card{background:#FFFDF7;border:1.2px solid #3E6778;border-radius:18px;overflow:hidden;box-shadow:0 8px 18px rgba(0,0,0,.06);display:flex;flex-direction:column;min-height:420px;transition:transform .16s ease,box-shadow .16s ease}
+.alam-card:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(0,0,0,.10)}
+.alam-media{width:100%;aspect-ratio:16/11;object-fit:cover;display:block}
+.alam-body{display:flex;flex-direction:column;gap:10px;padding:14px 16px 16px}
+.alam-name{margin:2px 0 4px;font:800 18px/1.2 "Outfit",system-ui;color:#1E365A}
+.alam-sub{margin:0;font-size:14px;text-align:justify;text-justify:inter-word;width:100%;padding:12px 16px;border-radius:12px;background:#FF7E6D;color:#fff;line-height:1.55;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
 
-/* ===== Peta ===== */
-.map-section{padding:40px 0}
-.map-section .container{width:min(1200px,96%);margin:auto}
-.section-title{background:#1E365A;color:#fff;padding:10px 22px;border-radius:14px;font-weight:900;display:inline-flex;align-items:center;gap:10px}
-.map-frame{margin:auto;padding:10px;border-radius:16px;border:1px solid rgba(255,255,255,.35);box-shadow:0 14px 38px rgba(0,0,0,.18)}
-#leaflet-map{width:100%;height:520px;border-radius:14px;border:1px solid rgba(0,0,0,.06)}
-.leaflet-control-zoom,.leaflet-control-layers{border-radius:10px!important;background:rgba(255,255,255,.7)!important}
-.distance-badge-pin{background:#1f2937;color:#fff;padding:6px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.25);box-shadow:0 6px 18px rgba(0,0,0,.35);font:700 12px/1 system-ui}
+/* ====== Peta ====== */
+.map-section{padding:clamp(24px,3.2vw,36px) 0;background:transparent}
+.map-section .container{width:min(1200px,96%);margin:0 auto}
+.map-section .section-title{display:inline-flex;align-items:center;gap:10px;margin:0 0 12px;padding:10px 22px;font:900 clamp(22px,3.4vw,32px)/1.1 "Outfit",system-ui;color:#fff;background:#1E365A;border:1px solid rgba(255,255,255,.28);border-radius:14px;box-shadow:0 8px 22px rgba(0,0,0,.22)}
+.map-frame{margin-inline:auto;padding:12px;border-radius:16px;background:none;border:1px solid rgba(255,255,255,.35);box-shadow:0 14px 38px rgba(0,0,0,.18)}
+#leaflet-map{width:100%;height:520px;border-radius:14px;border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 0 rgba(255,255,255,.35) inset;outline:none}
+.leaflet-control-zoom,.leaflet-control-layers{border-radius:12px!important;border:0!important;background:rgba(255,255,255,.55)!important;box-shadow:0 8px 18px rgba(0,0,0,.15)!important}
+.leaflet-routing-container{display:none!important}
+.distance-badge-pin{background:#1f2937;color:#fff;padding:6px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.25);box-shadow:0 6px 18px rgba(0,0,0,.35);font:700 12px/1 system-ui,Arial,sans-serif;white-space:nowrap}
 
-/* ===== Footer ===== */
-footer{background:var(--footer-bg);color:#fff;padding:30px 0 10px;margin-top:50px}
-.footer-grid{width:min(1100px,92%);margin:auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
-.footer-brand{font-size:28px;font-weight:800;line-height:1.1}
-.footer-addr{margin-top:6px;line-height:1.6}
-.contact-list{list-style:none;padding:0;margin:0;display:grid;gap:.5rem}
-.contact-list a{color:#fff}
-.socials{display:flex;gap:12px;margin-top:10px}
-.soc{width:40px;height:40px;border-radius:12px;border:2px solid rgba(255,255,255,.45);display:grid;place-items:center}
-.soc:hover{background:rgba(255,255,255,.12);border-color:#fff}
-.footer-credits{border-top:1px solid rgba(255,255,255,.12);margin-top:10px;padding-top:10px;text-align:center}
-@media(max-width:900px){.footer-grid{grid-template-columns:1fr}}
+/* ====== FOOTER (copy dari index) ====== */
+.footer-wave{height:84px;line-height:0;margin-bottom:-46px;pointer-events:none}
+.footer-wave svg{width:100%;height:100%;display:block}
+.footer-wave path{fill:var(--bg)}
+.site-footer{position:relative;overflow:hidden;background:#1e365a;color:#e4f1ef;padding-top:22px;margin-top:-1px}
+.footer-grid{position:relative;z-index:1;width:var(--footer-max);margin-inline:auto;display:grid;grid-template-columns:1.2fr 1.05fr 1fr;gap:clamp(20px,3vw,48px);align-items:start}
+.footer-brand{font-weight:800;font-size:clamp(28px,3.6vw,32px);line-height:1.08;margin:0 0 .75rem;color:var(--footer-accent);letter-spacing:.2px}
+.footer-addr{margin:.35rem 0 0;color:var(--footer-text);font-size:clamp(14px,1.6vw,18px);line-height:1.65;max-width:38ch}
+.footer-contact h4{margin:0 0 .65rem;color:var(--footer-accent);font-size:clamp(18px,2vw,22px)}
+.contact-list{list-style:none;padding:0;margin:0 0 .85rem;display:grid;gap:.55rem}
+.contact-list li{display:flex;align-items:center;gap:.65rem}
+.contact-list .ic{inline-size:28px;block-size:28px;display:grid;place-items:center;flex:0 0 auto}
+.contact-list .ic svg{stroke:#fff!important;fill:none!important;width:22px;height:22px;color:#fff!important}
+.contact-list a{color:#fefefe;text-decoration:none;font-weight:600}
+.contact-list a:hover{text-decoration:underline}
+.footer-quote{color:var(--footer-text);font-style:italic;font-size:clamp(15px,1.8vw,20px);line-height:1.65;max-width:42ch}
+.socials{display:flex;gap:.7rem;margin-top:.4rem}
+.socials .soc{width:40px;height:40px;border-radius:12px;border:2px solid rgba(255,255,255,.45);display:grid;place-items:center;color:#fff;transition:transform .18s ease,border-color .18s ease,background-color .18s ease}
+.socials .soc svg{width:20px;height:20px}
+.socials .soc:hover{background:rgba(255,255,255,.12);border-color:#fff;transform:translateY(-2px)}
+.footer-credits{border-top:1px solid rgba(255,255,255,.12);padding:10px 0 18px;background:var(--footer-bg)}
+.footer-credits small{display:block;width:var(--footer-max);margin-inline:auto;text-align:center;letter-spacing:.2px;color:#fff!important}
+
+/* ====== Responsif kartu ====== */
+@media (max-width:900px){ .alam-grid{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
 
-<!-- ===== Header ===== -->
+<!-- ====== HEADER (persis index) ====== -->
 <header class="topbar">
-  <div class="nav">
+  <div class="container nav">
     <div class="brand">
-      <span class="logo"><img src="./busel.png" alt="Busel Logo"></span>
-      <div class="brand-text">Kabupaten<br>Buton Selatan</div>
+      <span class="logo"><img src="busel.png" alt="Busel"></span>
+      <div class="brand-text"><strong>Kabupaten</strong><br>Buton<br>Selatan</div>
     </div>
     <nav class="menu">
-      <a href="index.html">Beranda</a>
-      <a href="#peta">Peta</a>
-      <a href="#kontak" class="cta">Sapa Kami</a>
+      <a href="./index.html">Beranda</a>
+      <a href="./warisan_abadi.html">Warisan Abadi</a>
+      <a href="./pelukan_alam.html" class="active">Pelukan Alam</a>
+      <a href="./tangan_berkarya.html">Tangan Berkarya</a>
+      <a href="./statistik_desa.html">Statistik Desa</a>
+      <a href="./sapa_kami.html" class="cta">Sapa Kami</a>
     </nav>
   </div>
 </header>
 
-<!-- ===== Slider ===== -->
+<!-- ====== SLIDER PELUKAN ALAM (tetap) ====== -->
 <section class="pelukan-alam">
   <div class="swiper pelukan-slider">
     <div class="swiper-wrapper">
       <div class="swiper-slide">
         <img src="./kacimbola.png" alt="Pantai Kacimbola">
-        <div class="slide-caption"><h2>Pantai Kacimbola</h2><p>Hamparan pasir putih berpadu dengan birunya Laut Flores, memantulkan kilau keemasan saat pagi hari.</p></div>
+        <div class="slide-caption">
+          <h2>Pantai Kacimbola</h2>
+          <p>Hamparan pasir putih berpadu dengan birunya Laut Flores, memantulkan kilau keemasan saat pagi hari.</p>
+        </div>
       </div>
       <div class="swiper-slide">
         <img src="./waburi.png" alt="Waburi Park">
-        <div class="slide-caption"><h2>Waburi Park</h2><p>Taman di puncak tebing dengan panorama laut membentang—tempat terbaik menyaksikan matahari terbenam.</p></div>
+        <div class="slide-caption">
+          <h2>Waburi Park</h2>
+          <p>Taman di puncak tebing dengan panorama laut membentang—tempat terbaik menyaksikan matahari terbenam.</p>
+        </div>
       </div>
       <div class="swiper-slide">
         <img src="./kunawe.png" alt="Ceruk Konawe">
-        <div class="slide-caption"><h2>Ceruk Konawe</h2><p>Gua alami peninggalan prasejarah: cap tangan, pola garis, dan temuan sisa tulang manusia.</p></div>
+        <div class="slide-caption">
+          <h2>Ceruk Konawe</h2>
+          <p>Gua alami bertuah peninggalan prasejarah: cap tangan, pola garis, dan temuan sisa tulang manusia.</p>
+        </div>
       </div>
     </div>
     <div class="swiper-button-prev"></div>
@@ -125,75 +166,101 @@ footer{background:var(--footer-bg);color:#fff;padding:30px 0 10px;margin-top:50p
   </div>
 </section>
 
-<!-- Intro -->
 <div class="intro-wisata">
   <p>Keindahan alam Gaya Baru terpancar dari destinasi, laut, flora, dan faunanya—menjadi sumber kehidupan dan kebanggaan.</p>
 </div>
 
-<!-- ===== Kekayaan Laut ===== -->
-<section class="stay-list">
-  <div class="container">
+<!-- ====== KEKAYAAN LAUT (tetap) ====== -->
+<section class="stay-list" style="isolation:isolate">
+  <div class="container" style="position:relative;z-index:1">
     <h2 class="stay-title">Kekayaan Laut</h2>
     <div class="alam-grid">
       <article class="alam-card">
         <img src="./cakalang.png" alt="Ikan Cakalang" class="alam-media">
-        <div class="alam-body"><h3 class="alam-name">Ikan Cakalang</h3><p class="alam-sub">Daging padat dan gurih; tangkapan utama nelayan—simbol ketekunan pesisir.</p></div>
+        <div class="alam-body">
+          <h3 class="alam-name">Ikan Cakalang</h3>
+          <p class="alam-sub">Daging padat dan gurih; tangkapan utama nelayan Gaya Baru sekaligus simbol ketekunan pesisir.</p>
+        </div>
       </article>
       <article class="alam-card">
         <img src="./tuna.png" alt="Ikan Tuna" class="alam-media">
-        <div class="alam-body"><h3 class="alam-name">Ikan Tuna</h3><p class="alam-sub">Raja samudra; jalur migrasi di Laut Flores—andalan perikanan berkelanjutan.</p></div>
+        <div class="alam-body">
+          <h3 class="alam-name">Ikan Tuna</h3>
+          <p class="alam-sub">Raja samudra; perairan Gaya Baru menjadi jalur migrasi—andalan perikanan berkelanjutan.</p>
+        </div>
       </article>
       <article class="alam-card">
         <img src="./tongkol.png" alt="Ikan Tongkol" class="alam-media">
-        <div class="alam-body"><h3 class="alam-name">Ikan Tongkol</h3><p class="alam-sub">Tangguh dan adaptif; komoditas yang mencerminkan keseimbangan dan kelestarian.</p></div>
+        <div class="alam-body">
+          <h3 class="alam-name">Ikan Tongkol</h3>
+          <p class="alam-sub">Tangguh dan adaptif; komoditas pangan yang mencerminkan keseimbangan kebutuhan dan kelestarian.</p>
+        </div>
       </article>
     </div>
   </div>
 </section>
 
-<!-- ===== Kekayaan Flora ===== -->
+<!-- ====== KEKAYAAN FLORA (tetap) ====== -->
 <section class="stay-list">
   <div class="container">
     <h2 class="stay-title">Kekayaan Flora</h2>
     <div class="alam-grid">
       <article class="alam-card">
         <img src="./rotan.png" alt="Rotan Batang" class="alam-media">
-        <div class="alam-body"><h3 class="alam-name">Rotan Batang</h3><p class="alam-sub">Lentur namun kuat; bahan penting kerajinan—harmoni alam dan budaya.</p></div>
+        <div class="alam-body">
+          <h3 class="alam-name">Rotan Batang</h3>
+          <p class="alam-sub">Lentur namun kuat; bahan penting kerajinan—harmoni alam dan budaya lokal.</p>
+        </div>
       </article>
       <article class="alam-card">
         <img src="./terumbu.png" alt="Terumbu Karang" class="alam-media">
-        <div class="alam-body"><h3 class="alam-name">Terumbu Karang</h3><p class="alam-sub">Taman bawah laut penuh warna; benteng alami pesisir & surga penyelam.</p></div>
+        <div class="alam-body">
+          <h3 class="alam-name">Terumbu Karang</h3>
+          <p class="alam-sub">Taman bawah laut penuh warna—benteng alami pesisir dan surga bagi penyelam.</p>
+        </div>
       </article>
       <article class="alam-card">
         <img src="./anggrek.png" alt="Anggrek Serat" class="alam-media">
-        <div class="alam-body"><h3 class="alam-name">Anggrek Serat</h3><p class="alam-sub">Permata hutan berkelopak halus; daya pikat botani di lereng lembap.</p></div>
+        <div class="alam-body">
+          <h3 class="alam-name">Anggrek Serat</h3>
+          <p class="alam-sub">Permata hutan dengan kelopak halus; daya pikat botani di lereng lembap.</p>
+        </div>
       </article>
     </div>
   </div>
 </section>
 
-<!-- ===== Kekayaan Fauna ===== -->
+<!-- ====== KEKAYAAN FAUNA (tetap) ====== -->
 <section class="stay-list">
   <div class="container">
     <h2 class="stay-title">Kekayaan Fauna</h2>
     <div class="alam-grid">
       <article class="alam-card">
         <img src="./kangkareng.png" alt="Kangkareng Sulawesi" class="alam-media">
-        <div class="alam-body"><h3 class="alam-name">Kangkareng Sulawesi</h3><p class="alam-sub">Paruh besar & suara nyaring; penyebar biji yang menjaga regenerasi hutan.</p></div>
+        <div class="alam-body">
+          <h3 class="alam-name">Kangkareng Sulawesi</h3>
+          <p class="alam-sub">Paruh besar, suara nyaring; penyebar biji yang menjaga regenerasi hutan tropis.</p>
+        </div>
       </article>
       <article class="alam-card">
         <img src="./macaca.png" alt="Monyet Macaca" class="alam-media">
-        <div class="alam-body"><h3 class="alam-name">Monyet Macaca</h3><p class="alam-sub">Primata cerdas hidup berkelompok—indikator ekosistem terjaga.</p></div>
+        <div class="alam-body">
+          <h3 class="alam-name">Monyet Macaca</h3>
+          <p class="alam-sub">Primata cerdas hidup berkelompok—indikator ekosistem yang terjaga.</p>
+        </div>
       </article>
       <article class="alam-card">
         <img src="./maleo.png" alt="Burung Maleo" class="alam-media">
-        <div class="alam-body"><h3 class="alam-name">Burung Maleo</h3><p class="alam-sub">Endemik Sulawesi; bertelur di pasir panas—nilai konservasi tinggi.</p></div>
+        <div class="alam-body">
+          <h3 class="alam-name">Burung Maleo</h3>
+          <p class="alam-sub">Endemik Sulawesi; bertelur di pasir panas—nilai konservasi tinggi bagi ekowisata.</p>
+        </div>
       </article>
     </div>
   </div>
 </section>
 
-<!-- ===== Peta Wisata ===== -->
+<!-- ====== PETA WISATA (tetap) ====== -->
 <section class="map-section" id="peta">
   <div class="container">
     <h2 class="section-title">Peta Tempat Wisata</h2>
@@ -201,37 +268,62 @@ footer{background:var(--footer-bg);color:#fff;padding:30px 0 10px;margin-top:50p
   </div>
 </section>
 
-<!-- ===== Footer ===== -->
-<footer id="kontak">
-  <div class="footer-grid">
+<!-- ====== FOOTER WAVE & FOOTER (persis index) ====== -->
+<svg aria-hidden="true" viewBox="0 0 1440 120" preserveAspectRatio="none" class="footer-wave">
+  <path d="M0,80 C200,40 400,120 600,80 C800,40 1000,120 1200,80 C1320,50 1440,100 1440,100 L1440,120 L0,120 Z"></path>
+</svg>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
     <div>
-      <div class="footer-brand">Desa Gaya Baru</div>
-      <p class="footer-addr">Kec. Lapandewa, Kab. Buton Selatan, Sulawesi Tenggara</p>
+      <div class="footer-brand">Desa<br>Gaya<br>Baru</div>
+      <p class="footer-addr">Kecamatan Lapandewa<br>Kabupaten Buton Selatan,<br>Sulawesi Tenggara 93753</p>
     </div>
-    <div>
+    <div class="footer-contact">
+      <h4>Hubungi Kami</h4>
       <ul class="contact-list">
-        <li><a href="https://wa.me/6281323642950">WhatsApp 0813-2364-2950</a></li>
-        <li><a href="mailto:info@desagayabaru.id">info@desagayabaru.id</a></li>
+        <li>
+          <span class="ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.9 19.9 0 0 1-8.6-3.1 19.6 19.6 0 0 1-6-6 19.9 19.9 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.8.3 1.6.6 2.4a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.7-1.1a2 2 0 0 1 2.1-.5c.8.2 1.6.5 2.4.6A2 2 0 0 1 22 16.9Z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </span>
+          <a href="https://wa.me/6281323642950" aria-label="WhatsApp 0813-2364-2950">0813-2364-2950</a>
+        </li>
+        <li>
+          <span class="ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+              <path d="M3 7.5 12 13 21 7.5" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </span>
+          <a href="mailto:info@desagayabaru.id">info@desagayabaru.id</a>
+        </li>
       </ul>
       <div class="socials">
-        <a class="soc" href="https://facebook.com" aria-label="Facebook">📘</a>
-        <a class="soc" href="https://youtube.com" aria-label="YouTube">▶️</a>
+        <a href="https://www.facebook.com/DesaGayaBaruKecLapandewaKabupatenButonSelatan/" target="_blank" rel="noopener" aria-label="Facebook" class="soc">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="currentColor" stroke-width="2"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@Waburi_Park/" target="_blank" rel="noopener" aria-label="YouTube" class="soc">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="3" stroke="currentColor" stroke-width="2"/><path d="M10 9.5 15 12l-5 2.5z" fill="currentColor"/></svg>
+        </a>
       </div>
     </div>
-    <div><p style="font-style:italic;max-width:42ch">“Di pesisir ini, ombak bercerita, angin berbisik, dan kehidupan berjalan dalam harmoni.”</p></div>
+    <div><p class="footer-quote">“Di pesisir ini, ombak bercerita, angin berbisik, dan kehidupan berjalan dalam harmoni.”</p></div>
   </div>
-  <div class="footer-credits"><small>© <span id="year"></span> Desa Gaya Baru</small></div>
+  <div class="footer-credits"><small>© <span id="year"></span> Desa Gaya Baru — by Mirdha Dhea Permata</small></div>
 </footer>
 
-<!-- ===== Scripts ===== -->
+<!-- JS: Swiper, Leaflet, LRM, shpjs -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin></script>
 <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 <script src="https://unpkg.com/shpjs@latest/dist/shp.min.js"></script>
 <script>
-document.getElementById("year").textContent=new Date().getFullYear();
+/* tahun footer */
+document.getElementById('year').textContent = new Date().getFullYear();
 
-/* Swiper */
+/* ====== Inisialisasi Swiper ====== */
 new Swiper(".pelukan-slider",{
   loop:true,speed:700,grabCursor:true,effect:"coverflow",centeredSlides:true,slidesPerView:"auto",spaceBetween:40,
   coverflowEffect:{rotate:0,stretch:0,depth:180,modifier:1.2,slideShadows:false},
@@ -241,43 +333,44 @@ new Swiper(".pelukan-slider",{
   breakpoints:{320:{spaceBetween:16},640:{spaceBetween:24},1024:{spaceBetween:40}}
 });
 
-/* Leaflet + shpjs + OSRM */
+/* ====== Peta Leaflet + Routing + Tutupan Lahan (shpjs) ====== */
 document.addEventListener("DOMContentLoaded",async()=>{
   if(!window.L) return;
 
-  /* Basemap */
-  const osm  = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19});
-  const topo = L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",{maxZoom:17});
-  const sat  = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",{maxZoom:19});
+  // Basemap
+  const osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19});
+  const topo= L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",{maxZoom:17});
+  const sat = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",{maxZoom:19});
 
   const map = L.map("leaflet-map",{center:[-5.66,122.76],zoom:13,layers:[osm]});
   const layerControl=L.control.layers({OSM:osm,Topografi:topo,Satelit:sat},null,{position:"topright",collapsed:true}).addTo(map);
 
-  /* Titik wisata */
+  // Titik wisata
   const locations=[
-    {name:"Waburi Park",      coords:[-5.663294086295358,122.76500923206746]},
-    {name:"Pantai Kacimbola", coords:[-5.657579664077717,122.7610348916279]},
-    {name:"Ceruk Konawe",     coords:[-5.669443346244777,122.76431883050331]}
+    {name:"Waburi Park",     coords:[-5.663294086295358,122.76500923206746]},
+    {name:"Pantai Kacimbola",coords:[-5.657579664077717,122.7610348916279]},
+    {name:"Ceruk Konawe",    coords:[-5.669443346244777,122.76431883050331]}
   ];
   locations.forEach(l=>L.marker(l.coords).addTo(map).bindPopup(`<b>${l.name}</b>`));
+
   const byName=n=>locations.find(o=>o.name===n);
   const fmtKm=m=>`Jarak: ${(m/1000).toFixed(1)} km`;
   const midpointOnLine=latlngs=>{
-    if(!latlngs||latlngs.length<2) return latlngs?.[0];
+    if(!latlngs||latlngs.length<2)return latlngs?.[0];
     let total=0,seg=[];
     for(let i=1;i<latlngs.length;i++){const d=latlngs[i-1].distanceTo(latlngs[i]);seg.push(d);total+=d}
     const half=total/2; let acc=0;
     for(let i=1;i<latlngs.length;i++){
       if(acc+seg[i-1]>=half){
         const t=(half-acc)/seg[i-1],a=latlngs[i-1],b=latlngs[i];
-        return L.latLng(a.lat+t*(b.lat-a.lat),a.lng+t*(b.lng-a.lng));
+        return L.latLng(a.lat+t*(b.lat-a.lat),a.lng+t*(b.lng-a.lng))
       }
-      acc+=seg[i-1];
+      acc+=seg[i-1]
     }
-    return latlngs[Math.floor(latlngs.length/2)];
+    return latlngs[Math.floor(latlngs.length/2)]
   };
 
-  /* Skema warna tutupan lahan */
+  // Warna tutupan lahan
   const norm=s=>String(s||"").toLowerCase().replace(/\s+/g," ").trim();
   const colorFor=leg=>{
     const c=norm(leg), exact={
@@ -302,7 +395,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
     return{stroke:"#ff7b00",fill:"#ffd9ab"};
   };
 
-  /* Muat shapefile ZIP: pastikan tuplah.zip satu folder dengan file ini */
+  // Muat tutupan lahan dari ZIP
   async function loadTutupanLahan(){
     const ab=await fetch("./tuplah.zip").then(r=>{if(!r.ok)throw new Error("Gagal memuat tuplah.zip");return r.arrayBuffer()});
     const gj=await shp(ab);
@@ -312,7 +405,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
         const p=f.properties||{},leg=p.Legenda||p.name||"Tutupan Lahan",luas=p.Luas??p.luas??p.LUAS;
         const tip=(luas!=null&&String(luas).trim()!=="")?`${leg} — Luas: ${luas}`:leg;
         l.bindTooltip(tip,{sticky:true});
-        l.bindPopup(`<div style="min-width:240px"><div><b>${leg}</b></div>${luas?`<div>Luas: <b>${luas}</b></div>`:""}</div>`);
+        l.bindPopup(`<div style="min-width:240px"><div><b>${leg}</b></div>${luas?`<div>Luas: <b>${luas}</b></div>`:""}</div>`)
       }
     }).addTo(map);
     layerControl.addOverlay(tutupan,"Tutupan Lahan");
@@ -320,7 +413,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
     return tutupan;
   }
 
-  /* Gambar rute & badge jarak (OSRM) */
+  // rute + badge jarak
   function makeRouteOverlay(title,fromName,toName,color="#0b67d0"){
     const A=byName(fromName),B=byName(toName); if(!A||!B) return;
     const group=L.layerGroup();
@@ -329,13 +422,17 @@ document.addEventListener("DOMContentLoaded",async()=>{
       waypoints:[L.latLng(A.coords),L.latLng(B.coords)],
       router:L.Routing.osrmv1({serviceUrl:"https://router.project-osrm.org/route/v1"}),
       showAlternatives:false,fitSelectedRoutes:false,addWaypoints:false,draggableWaypoints:false,routeWhileDragging:false,
-      createMarker:()=>null,lineOptions:{styles:[{color:"transparent",weight:0,opacity:0}]}
+      createMarker:()=>null,
+      lineOptions:{styles:[{color:"transparent",weight:0,opacity:0}]}
     })
     .on("routesfound",e=>{
       const r=e.routes[0];
       L.polyline(r.coordinates,{color,weight:5,opacity:.9}).addTo(group);
       const mid=midpointOnLine(r.coordinates),txt=fmtKm(r.summary.totalDistance);
-      L.marker(mid,{icon:L.divIcon({className:"",html:`<div class="distance-badge-pin">${txt}</div>`,iconSize:null,iconAnchor:[0,0]}),interactive:false}).addTo(group);
+      L.marker(mid,{
+        icon:L.divIcon({className:"",html:`<div class="distance-badge-pin">${txt}</div>`,iconSize:null,iconAnchor:[0,0]}),
+        interactive:false
+      }).addTo(group)
     })
     .addTo(map);
 
@@ -343,8 +440,8 @@ document.addEventListener("DOMContentLoaded",async()=>{
   }
 
   await loadTutupanLahan();
-  makeRouteOverlay("Pantai Kacimbola → Waburi Park","Pantai Kacimbola","Waburi Park");
-  makeRouteOverlay("Waburi Park → Ceruk Konawe","Waburi Park","Ceruk Konawe");
+  makeRouteOverlay("Pantai Kacimbola → Waburi Park","Pantai Kacimbola","Waburi Park","#0b67d0");
+  makeRouteOverlay("Waburi Park → Ceruk Konawe","Waburi Park","Ceruk Konawe","#0b67d0");
   L.control.scale({imperial:false}).addTo(map);
 });
 </script>
