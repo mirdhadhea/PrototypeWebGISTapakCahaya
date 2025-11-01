@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>GeoVillage+</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+/* =============== FONT =============== */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+/* =============== TOKENS / THEME =============== */
+:root{--bg:#7ba6ac;--ink:#ffe9c4;--teal:#ff7e6d;--teal-2:#ff7e6d;--white:#fff;--muted:color-mix(in srgb,var(--ink)70%,var(--bg)30%);--menu-edge-gap:14px;--header-xpad:8px;--menu-gap:42px;--logo-size:50px;--header-py:30px;--brand-left-gap:16px;--footer-bg:#1e365a;--footer-max:min(1100px,92%);--footer-accent:#fff;--footer-text:#fff;--story-max:min(1100px,92%);--story-media-w:clamp(380px,46vw,620px);--story-gap:clamp(12px,1.6vw,28px);--img-overlap:clamp(-64px,-5vw,-24px);--text-overlap-right:clamp(-72px,-4.8vw,-32px);--text-overlap-left:clamp(-72px,-4.8vw,-32px)}
+
+/* =============== RESET RINGAN =============== */
+*{box-sizing:border-box}
+*,*::before,*::after{font-family:inherit}
+body{margin:0;font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+input,textarea,select,button{font:inherit}
+.container{width:min(1100px,92%);margin-inline:auto}
+
+/* =============== HEADER (TOPBAR / NAV) =============== */
+.topbar{background:#1e365a;color:var(--ink)}
+.topbar .container{width:100%;margin:0;padding:0 var(--header-xpad)}
+.nav{display:flex;align-items:center;gap:10px;padding-block:var(--header-py);min-height:calc(var(--logo-size) + var(--header-py))}
+.brand{display:flex;align-items:center;gap:8px;flex:0 0 auto;margin-left:var(--brand-left-gap)}
+.logo{width:var(--logo-size);height:var(--logo-size);display:block}
+.logo img{width:100%;height:100%;object-fit:contain;display:block}
+.brand-text{line-height:1.05;font-weight:700;font-size:20px;color:var(--footer-accent)!important}
+.menu{margin-left:auto;display:flex;align-items:center;justify-content:flex-end;gap:var(--menu-gap);flex-wrap:nowrap;padding-inline-end:var(--menu-edge-gap)}
+.menu a{text-decoration:none;font-weight:700;padding:8px 0;font-size:16px;color:var(--footer-accent)!important}
+.menu a:hover{color:#fff!important}
+.menu .cta{background:var(--teal-2);color:#fff;padding:10px 16px;border-radius:10px;border:1.5px solid var(--teal-2);box-shadow:0 6px 14px color-mix(in srgb,var(--teal-2)22%,#000 78%)}
+
+/* =============== HERO (opsional gambar) =============== */
+.home{position:relative;overflow:hidden;background:var(--bg)}
+.home-bg{width:100%;height:280px;object-fit:cover;object-position:50% 28%;display:block;filter:contrast(1.05) saturate(1.05)}
+.home-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,0))}
+.home-inner{position:absolute;inset:0;display:grid;align-content:center;gap:14px;color:#fff;padding-inline:var(--header-xpad)}
+.home .eyebrow{letter-spacing:.18em;text-transform:uppercase;opacity:.9}
+.home h1{font-size:clamp(28px,5vw,48px);margin:0;font-weight:800}
+.home-wave{position:absolute;left:0;right:0;bottom:-2px;width:100%;height:80px}
+.home-wave path{fill:var(--bg)}
+
+/* =============== SECTION / KOMPONEN UMKM =============== */
+.pkg{padding:clamp(18px,3vw,28px) 0;background:var(--bg)}
+.pkg .container{width:min(1100px,92%);margin:0 auto}
+.pkg-row-title{margin:10px 0 12px;font:800 clamp(20px,3.6vw,28px)/1.15 "Outfit",system-ui;color:#1e365a;text-align:center}
+
+.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,1.4vw,18px);margin-bottom:clamp(16px,2.6vw,28px);align-items:stretch}
+@media (max-width: 900px){ .card-grid{grid-template-columns:1fr 1fr} }
+@media (max-width: 640px){ .card-grid{grid-template-columns:1fr} }
+
+.hero-card{position:relative;border-radius:18px;overflow:hidden;background:#111;color:#fff;box-shadow:0 10px 22px rgba(0,0,0,.12);min-height:240px;background-image:var(--bg);background-size:cover;background-position:center;display:flex;flex-direction:column}
+.hero-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25) 0,rgba(0,0,0,.55) 70%)}
+.hero-inner{position:relative;z-index:2;padding:clamp(14px,2vw,18px);display:flex;flex-direction:column;min-height:100%;text-shadow:0 2px 14px rgba(0,0,0,.35);backdrop-filter:saturate(110%) blur(.5px)}
+.hero-inner h3{margin:0;font:800 clamp(18px,2.6vw,22px)/1.15 "Outfit",system-ui;letter-spacing:.3px}
+.hero-inner p{margin:0 0 8px;opacity:.95;font-size:14px;line-height:1.45}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
+.btn{border:0;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;font-weight:800}
+.btn-ghost{background:color-mix(in srgb,#fff 45%,transparent);color:#fff;border:1px solid color-mix(in srgb,#000 65%,transparent);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);transition:all .25s ease}
+.btn-ghost:hover{background:color-mix(in srgb,#ff7e6d 100%,white);color:#fff}
+
+.pkg-intro{padding:clamp(22px,4vw,36px) 0 clamp(8px,2vw,16px);background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,0))}
+.pkg-intro .intro-card{background:#FFFDF7;border:1.5px solid #e8edf2;border-radius:18px;box-shadow:0 12px 26px rgba(13,31,41,.10);padding:clamp(16px,2.6vw,28px) clamp(18px,3vw,36px);position:relative;overflow:hidden;border:1px solid #3E6778}
+.pkg-intro .intro-card::before{content:"";position:absolute;inset:auto -10% 0 -10%;height:120px;background:radial-gradient(80% 60% at 50% 100%,rgba(123,166,172,.28),transparent 70%);pointer-events:none}
+.pkg-intro h1{margin:0 0 8px;font:800 clamp(22px,4vw,34px)/1.12 "Outfit",system-ui;color:#1e365a;letter-spacing:.2px}
+.pkg-intro p{margin:0 0 10px;color:#1e365a;font-size:clamp(14px,1.4vw,16px);line-height:1.7;text-align:justify}
+
+/* KELAS BG KARTU (pakai CSS var --bg) */
+.bg-mtb   { --bg: url("kagarai.png"); }
+.bg-rafting{ --bg: url("asap.png"); }
+.bg-cabin { --bg: url("bunga.png"); }
+.bg-guest { --bg: url("anyaman.png"); }
+.bg-suite { --bg: url("pandan.png"); }
+.bg-family{ --bg: url("madu.png"); }
+.bg-bike  { --bg: url("bawang.png"); }
+.bg-river { --bg: url("minyak.png"); }
+.bg-hike  { --bg: url("senga.png"); }
+
+/* =============== MAP (LEAFLET) =============== */
+.map-section{padding:clamp(24px,3.2vw,36px) 0 0;background:transparent}
+.map-section .container{width:min(1200px,96%);margin:0 auto}
+.map-section .section-title{display:inline-flex;align-items:center;gap:10px;margin:0 0 12px;padding:10px 22px;font:900 clamp(22px,3.4vw,32px)/1.1 "Outfit",system-ui;color:#fff;background:#1E365A;border:1px solid rgba(255,255,255,.28);border-radius:14px;box-shadow:0 8px 22px rgba(0,0,0,.22)}
+.map-frame{width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.08);background:#f7fbff}
+#umkm-map{width:100%;height:100%;min-height:340px}
+.leaflet-control-zoom,.leaflet-control-layers{border-radius:12px!important;border:0!important;background:rgba(255,255,255,.55)!important;box-shadow:0 8px 18px rgba(0,0,0,.15)!important}
+.leaflet-control-zoom a{border-radius:10px!important}
+
+/* =============== FOOTER =============== */
+.site-footer{position:relative;overflow:hidden;background:#1e365a;color:#e4f1ef;padding-top:22px;margin-top:36px}
+.footer-grid{width:var(--footer-max);margin-inline:auto;display:grid;grid-template-columns:1.2fr 1.05fr 1fr;gap:clamp(20px,3vw,48px);align-items:start;padding:28px 0}
+.footer-brand{font-weight:800;font-size:clamp(28px,3.6vw,32px);line-height:1.08;margin:0 0 .75rem;color:var(--footer-accent);letter-spacing:.2px}
+.footer-addr{margin:.35rem 0 0;color:var(--footer-text);font-size:clamp(14px,1.6vw,18px);line-height:1.65;max-width:38ch}
+.footer-contact h4{margin:0 0 .65rem;color:var(--footer-accent);font-size:clamp(18px,2vw,22px)}
+.contact-list{list-style:none;padding:0;margin:0 0 .85rem;display:grid;gap:.55rem}
+.contact-list li{display:flex;align-items:center;gap:.65rem}
+.contact-list .ic{inline-size:28px;block-size:28px;display:grid;place-items:center;flex:0 0 auto}
+.contact-list .ic svg{stroke:#fff!important;fill:none!important;width:22px;height:22px;color:#fff!important}
+.contact-list a{color:#fefefe;text-decoration:none;font-weight:600}
+.contact-list a:hover{text-decoration:underline}
+.footer-quote{color:var(--footer-text);font-style:italic;font-size:clamp(15px,1.8vw,20px);line-height:1.65;max-width:42ch}
+.socials{display:flex;gap:.7rem;margin-top:.4rem}
+.socials .soc{width:40px;height:40px;border-radius:12px;border:2px solid rgba(255,255,255,.45);display:grid;place-items:center;color:#fff;transition:transform .18s ease,border-color .18s ease,background-color .18s ease}
+.socials .soc svg{width:20px;height:20px}
+.socials .soc:hover{background:rgba(255,255,255,.12);border-color:#fff;transform:translateY(-2px)}
+.footer-copy,.footer-credits{border-top:1px solid rgba(255,255,255,.12);background:var(--footer-bg)}
+.footer-copy{padding:14px 0 20px}
+.footer-copy small{display:block;width:var(--footer-max);margin-inline:auto;text-align:center;color:var(--footer-text);opacity:.95}
+.footer-credits{padding:10px 0 18px}
+.footer-credits small{display:block;width:var(--footer-max);margin-inline:auto;text-align:center;letter-spacing:.2px;color:#fff!important}
+
+/* A11y focus */
+.site-footer a:focus-visible,.menu a:focus-visible,.btn:focus-visible{outline:2px solid var(--footer-accent);outline-offset:2px;border-radius:6px}
+  </style>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="topbar">
+    <div class="container">
+      <nav class="nav" aria-label="Navigasi utama">
+        <a class="brand" href="./index.html">
+          <span class="logo"><img src="./static/img/logo.png" alt="Logo Desa Gaya Baru"></span>
+          <span class="brand-text">Desa Gaya Baru</span>
+        </a>
+        <div class="menu" role="menubar">
+          <a role="menuitem" href="./index.html">Beranda</a>
+          <a role="menuitem" href="./jejak_waktu.html">Jejak Waktu</a>
+          <a role="menuitem" href="./pelukan_alam.html">Pelukan Alam</a>
+          <a role="menuitem" aria-current="page" href="./tangan_berkarya.html" class="cta">Tangan Berkarya</a>
+          <a role="menuitem" href="./statistik_desa.html">Statistik Desa</a>
+          <a role="menuitem" href="./sapa_kami.html">Sapa Kami</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= INTRO ================= -->
+  <section class="pkg-intro">
+    <div class="container">
+      <div class="intro-card">
+        <h1>Usaha Mikro, Kecil, dan Menengah</h1>
+        <p>Desa Gaya Baru adalah wujud nyata semangat kemandirian masyarakat pesisir Buton Selatan. Dari tangan-tangan kreatif warganya, lahir berbagai produk lokal unggulan bernilai ekonomi sekaligus mencerminkan kekayaan budaya dan alam.</p>
+        <p>Dari olahan laut hingga kerajinan tangan, dari rempah tradisional hingga tanaman hias, UMKM di desa ini tidak hanya menopang ekonomi, tetapi juga menjaga warisan leluhur dan memperkuat identitas lokal di tengah arus modernisasi.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= KARTU UMKM ================= -->
+  <main class="pkg" aria-label="Daftar UMKM Desa Gaya Baru">
+    <div class="container">
+
+      <!-- BARIS 1 -->
+      <h2 class="pkg-row-title">Olahan Pangan Lokal</h2>
+      <div class="card-grid">
+        <article class="hero-card bg-mtb">
+          <div class="hero-inner">
+            <h3>Ikan Kagarai</h3>
+            <p>Olahan ikan kering khas Gaya Baru: dijemur menggunakan air laut—gurih alami &amp; tahan lama tanpa pengawet.</p>
+            <div class="hero-actions">
+              <a class="btn btn-ghost" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20Ikan%20Kagarai." aria-label="Hubungi via WhatsApp untuk Ikan Kagarai">Hubungi lebih lanjut ➜</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="hero-card bg-rafting">
+          <div class="hero-inner">
+            <h3>Ikan Asap “Ikan Terbang”</h3>
+            <p>Ikon kuliner Buton Selatan: varian Original &amp; Gurih, cocok sebagai oleh-oleh.</p>
+            <div class="hero-actions">
+              <a class="btn btn-ghost" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20Ikan%20Asap%20Ikan%20Terbang." aria-label="Hubungi via WhatsApp untuk Ikan Asap Ikan Terbang">Hubungi lebih lanjut ➜</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="hero-card bg-bike">
+          <div class="hero-inner">
+            <h3>Bawang Goreng Mombaka</h3>
+            <p>Bawang merah lokal renyah produksi Kelompok Tani Watati Makmur—camilan khas Lapandewa Jaya.</p>
+            <div class="hero-actions">
+              <a class="btn btn-ghost" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20Bawang%20Goreng%20Mombaka." aria-label="Hubungi via WhatsApp untuk Bawang Goreng Mombaka">Hubungi lebih lanjut ➜</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- BARIS 2 -->
+      <h2 class="pkg-row-title">Kerajinan Tangan</h2>
+      <div class="card-grid">
+        <article class="hero-card bg-cabin">
+          <div class="hero-inner">
+            <h3>Kerajinan Bunga dari Limbah Plastik</h3>
+            <p>Daur ulang plastik bekas jadi hiasan bunga—suvenir ramah lingkungan (Waburi Park).</p>
+            <div class="hero-actions">
+              <a class="btn btn-ghost" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20Kerajinan%20Bunga%20Plastik." aria-label="Hubungi via WhatsApp untuk Kerajinan Bunga Plastik">Hubungi lebih lanjut ➜</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="hero-card bg-guest">
+          <div class="hero-inner">
+            <h3>Anyaman “Balase” Daun Kelapa</h3>
+            <p>Tas &amp; wadah anyaman khas Busel—solusi ramah lingkungan yang melestarikan kearifan lokal.</p>
+            <div class="hero-actions">
+              <a class="btn btn-ghost" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20Anyaman%20Balase." aria-label="Hubungi via WhatsApp untuk Anyaman Balase">Hubungi lebih lanjut ➜</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="hero-card bg-suite">
+          <div class="hero-inner">
+            <h3>Anyaman Bambu &amp; Daun Agel</h3>
+            <p>Tas, bakul, dan tikar etnik dari bambu &amp; daun pandan (agel)—warisan pengrajin Lapandewa.</p>
+            <div class="hero-actions">
+              <a class="btn btn-ghost" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20Anyaman%20Bambu%20%26%20Agel." aria-label="Hubungi via WhatsApp untuk Anyaman Bambu dan Agel">Hubungi lebih lanjut ➜</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- BARIS 3 -->
+      <h2 class="pkg-row-title">Produk Olahan dan Herbal Lokal</h2>
+      <div class="card-grid">
+        <article class="hero-card bg-hike">
+          <div class="hero-inner">
+            <h3>Kelapa Goreng “Senga Senga”</h3>
+            <p>Kelapa sangrai khas Lande—camilan gurih &amp; inovasi nilai tambah kelapa lokal.</p>
+            <div class="hero-actions">
+              <a class="btn btn-ghost" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20Kelapa%20Goreng%20Senga%20Senga." aria-label="Hubungi via WhatsApp untuk Kelapa Goreng Senga Senga">Hubungi lebih lanjut ➜</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="hero-card bg-river">
+          <div class="hero-inner">
+            <h3>Minyak Kelapa Tradisional</h3>
+            <p>Minyak kelapa murni rumahan dari buah kelapa Busel—sehat &amp; bernilai ekonomi.</p>
+            <div class="hero-actions">
+              <a class="btn btn-ghost" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20Minyak%20Kelapa%20Tradisional." aria-label="Hubungi via WhatsApp untuk Minyak Kelapa Tradisional">Hubungi lebih lanjut ➜</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="hero-card bg-family">
+          <div class="hero-inner">
+            <h3>Madu Trigona (“Ongka Madu”)</h3>
+            <p>Madu kelulut alami—produk herbal unggulan dari lebah tanpa sengat di Buton Selatan.</p>
+            <div class="hero-actions">
+              <a class="btn btn-ghost" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20Madu%20Trigona." aria-label="Hubungi via WhatsApp untuk Madu Trigona">Hubungi lebih lanjut ➜</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- ====== PETA (HANYA SATU) ====== -->
+      <section class="map-section" id="umkm">
+        <div class="container">
+          <h3 class="section-title">Peta Sebaran UMKM</h3>
+          <div class="map-frame">
+            <div id="umkm-map" role="img" aria-label="Peta sebaran UMKM Desa Gaya Baru"></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Desa Gaya Baru</div>
+        <p class="footer-addr">Kec. Lapandewa, Kab. Buton Selatan, Sulawesi Tenggara</p>
+        <p class="footer-quote">“Dari laut, budaya, dan kerja—lahir karya yang menjaga identitas.”</p>
+      </div>
+      <div class="footer-contact">
+        <h4>Kontak</h4>
+        <ul class="contact-list">
+          <li>
+            <span class="ic">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16v12H5.17L4 17.17V4z" stroke="currentColor" stroke-width="2"/></svg>
+            </span>
+            <a href="mailto:desa.gayabaru@example.com">desa.gayabaru@example.com</a>
+          </li>
+          <li>
+            <span class="ic">
+              <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.57.57 1 1 0 011 1v3.5a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.57 1 1 0 01-.24 1.01l-2.2 2.2z" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+            </span>
+            <a href="tel:+6281234567890">+62 812-3456-7890</a>
+          </li>
+        </ul>
+        <div class="socials" aria-label="Ikuti kami">
+          <a class="soc" aria-label="Instagram" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5a5 5 0 100 10 5 5 0 000-10zm6.5-.25a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0z"/></svg></a>
+          <a class="soc" aria-label="YouTube" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 15l5.19-3L10 9v6z"/><path d="M21.58 7.2a2.5 2.5 0 00-1.76-1.77C18.13 5 12 5 12 5s-6.13 0-7.82.43A2.5 2.5 0 002.42 7.2 26.3 26.3 0 002 12a26.3 26.3 0 00.42 4.8 2.5 2.5 0 001.76 1.77C5.87 19 12 19 12 19s6.13 0 7.82-.43a2.5 2.5 0 001.76-1.77A26.3 26.3 0 0022 12a26.3 26.3 0 00-.42-4.8z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-brand">Tapak Cahaya</div>
+        <p class="footer-addr">Platform WebGIS &amp; Profil Desa untuk promosi potensi, wisata, dan UMKM.</p>
+      </div>
+    </div>
+    <div class="footer-copy"><small>&copy; <span id="ycopy"></span> Desa Gaya Baru. All rights reserved.</small></div>
+  </footer>
+
+  <!-- =============== SCRIPTS =============== -->
+  <script>
+    // tahun footer
+    document.getElementById('ycopy').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Peta UMKM -->
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // ====== DATA TITIK (bisa diganti JSON dinamis) ======
+    const umkmPoints = [
+      { coords: [-5.660571038678991, 122.7651485050672], name: "Restoran Lakaliba" },
+      { coords: [-5.658493705362705, 122.7648754802927], name: "Kios Firanti" },
+      { coords: [-5.65904266290017, 122.76370305905535], name: "Kios Putra" },
+    ];
+
+    // ====== MAP ======
+    const map = L.map("umkm-map", {
+      center: [-5.659498735082537, 122.76564467877607],
+      zoom: 15,
+      zoomControl: true,
+      scrollWheelZoom: true,
+      doubleClickZoom: true,
+      dragging: true
+    });
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors",
+      maxZoom: 19
+    }).addTo(map);
+
+    // Marker & bounds
+    const fg = L.featureGroup().addTo(map);
+    umkmPoints.forEach(p => {
+      L.marker(p.coords)
+        .addTo(fg)
+        .bindPopup(`<b>${p.name}</b><br>UMKM Desa Gaya Baru`);
+    });
+
+    if (umkmPoints.length > 0) {
+      try { map.fitBounds(fg.getBounds(), { padding: [18,18] }); } catch(e) {}
+    }
+
+    // Pastikan render sempurna saat container selesai layout
+    setTimeout(() => map.invalidateSize(), 160);
+
+    // Aksesibilitas sederhana: buka popup saat Enter ditekan pada map
+    map.on('keypress', (e) => {
+      if (e.originalEvent.key === 'Enter') {
+        const layers = Object.values(fg._layers || {});
+        if (layers[0]) layers[0].openPopup();
+      }
+    });
+  });
+  </script>
+</body>
+</html>
