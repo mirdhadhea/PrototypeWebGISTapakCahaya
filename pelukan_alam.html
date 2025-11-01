@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pelukan Alam — Desa Gaya Baru</title>
 
-<!-- FONT -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 
 <!-- SWIPER & LEAFLET -->
@@ -14,8 +15,9 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css">
 
 <style>
-/* ==== TOKENS (sama dengan index) ==== */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+/* ====== TOKENS GLOBAL (sama dengan index) ====== */
 :root{
   --bg:#7ba6ac;--ink:#ffe9c4;--teal:#ff7e6d;--teal-2:#ff7e6d;--white:#fff;
   --muted:color-mix(in srgb,var(--ink)70%,var(--bg)30%);
@@ -30,7 +32,7 @@ body{margin:0;font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Ari
 input,textarea,select,button{font:inherit}
 .container{width:min(1100px,92%);margin-inline:auto}
 
-/* ======= HEADER / NAV (copy dari index) ======= */
+/* ======= HEADER / NAV (persis index) ======= */
 .topbar{background:#1e365a;color:var(--ink)}
 .topbar .container{width:100%;margin:0;padding:0 var(--header-xpad)}
 .nav{display:flex;align-items:center;gap:10px;padding-block:var(--header-py);min-height:calc(var(--logo-size) + var(--header-py))}
@@ -43,7 +45,7 @@ input,textarea,select,button{font:inherit}
 .menu a:hover{color:#fff!important}
 .menu .cta{background:var(--teal-2);color:#fff;padding:10px 16px;border-radius:10px;border:1.5px solid var(--teal-2);box-shadow:0 6px 14px color-mix(in srgb,var(--teal-2)22%,#000 78%)}
 
-/* ====== SLIDER (konten kamu) ====== */
+/* ====== HERO SLIDER (halaman ini) ====== */
 .pelukan-alam{position:relative;width:100%;padding:clamp(12px,2vw,24px) 0;background:var(--bg)}
 .pelukan-slider{width:min(1200px,96%);height:clamp(68vh,78vh,82vh);margin-inline:auto}
 .swiper-slide{position:relative;width:clamp(240px,36vw,540px);height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:18px}
@@ -61,11 +63,11 @@ input,textarea,select,button{font:inherit}
 .pelukan-slider .swiper-button-prev::after,.pelukan-slider .swiper-button-next::after{font-size:18px;font-weight:900}
 .pelukan-slider .swiper-button-prev:hover,.pelukan-slider .swiper-button-next:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.6)}
 
-/* ====== Intro kalimat ====== */
+/* ====== Intro ====== */
 .intro-wisata{width:min(900px,92%);margin:clamp(24px,4vw,42px) auto;text-align:center;color:#1E365A;font:600 clamp(22px,2.6vw,24px)/1.55 "Outfit",system-ui;background:radial-gradient(ellipse at top center,rgba(255,255,255,0.25) 0%,rgba(255,255,255,0) 70%)}
 .intro-wisata p{margin:0;font-weight:600;letter-spacing:.3px;font-size:clamp(18px,2vw,22px);line-height:1.8;color:#1E365A;position:relative}
 
-/* ====== Kartu ====== */
+/* ====== Grid Kartu ====== */
 .stay-list{position:relative;width:min(1200px,96%);margin:clamp(32px,4vw,56px) auto;padding:clamp(22px,3vw,34px);border-radius:22px;background:rgba(123,166,172,0.55);border:2px solid rgba(255,255,255,.20);box-shadow:0 18px 48px rgba(0,0,0,.14);backdrop-filter:blur(8px) saturate(120%)}
 .stay-list .container{width:min(1050px,92%);margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:clamp(16px,2vw,22px)}
 .stay-title{display:inline-block;text-align:center;margin:2px 0 12px;padding:10px 28px;font:900 clamp(26px,3.6vw,36px)/1.2 "Outfit",system-ui;letter-spacing:.3px;color:#1E365A;background:#fff;border-radius:14px;box-shadow:0 6px 12px rgba(0,0,0,.08);border:1px solid #3E6778}
@@ -77,7 +79,7 @@ input,textarea,select,button{font:inherit}
 .alam-name{margin:2px 0 4px;font:800 18px/1.2 "Outfit",system-ui;color:#1E365A}
 .alam-sub{margin:0;font-size:14px;text-align:justify;text-justify:inter-word;width:100%;padding:12px 16px;border-radius:12px;background:#FF7E6D;color:#fff;line-height:1.55;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
 
-/* ====== Peta ====== */
+/* ====== Map block ====== */
 .map-section{padding:clamp(24px,3.2vw,36px) 0;background:transparent}
 .map-section .container{width:min(1200px,96%);margin:0 auto}
 .map-section .section-title{display:inline-flex;align-items:center;gap:10px;margin:0 0 12px;padding:10px 22px;font:900 clamp(22px,3.4vw,32px)/1.1 "Outfit",system-ui;color:#fff;background:#1E365A;border:1px solid rgba(255,255,255,.28);border-radius:14px;box-shadow:0 8px 22px rgba(0,0,0,.22)}
@@ -85,9 +87,11 @@ input,textarea,select,button{font:inherit}
 #leaflet-map{width:100%;height:520px;border-radius:14px;border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 0 rgba(255,255,255,.35) inset;outline:none}
 .leaflet-control-zoom,.leaflet-control-layers{border-radius:12px!important;border:0!important;background:rgba(255,255,255,.55)!important;box-shadow:0 8px 18px rgba(0,0,0,.15)!important}
 .leaflet-routing-container{display:none!important}
+
+/* ====== Badge Jarak ====== */
 .distance-badge-pin{background:#1f2937;color:#fff;padding:6px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.25);box-shadow:0 6px 18px rgba(0,0,0,.35);font:700 12px/1 system-ui,Arial,sans-serif;white-space:nowrap}
 
-/* ====== FOOTER (copy dari index) ====== */
+/* ======= FOOTER (persis index) ======= */
 .footer-wave{height:84px;line-height:0;margin-bottom:-46px;pointer-events:none}
 .footer-wave svg{width:100%;height:100%;display:block}
 .footer-wave path{fill:var(--bg)}
@@ -107,20 +111,25 @@ input,textarea,select,button{font:inherit}
 .socials .soc{width:40px;height:40px;border-radius:12px;border:2px solid rgba(255,255,255,.45);display:grid;place-items:center;color:#fff;transition:transform .18s ease,border-color .18s ease,background-color .18s ease}
 .socials .soc svg{width:20px;height:20px}
 .socials .soc:hover{background:rgba(255,255,255,.12);border-color:#fff;transform:translateY(-2px)}
-.footer-credits{border-top:1px solid rgba(255,255,255,.12);padding:10px 0 18px;background:var(--footer-bg)}
+.footer-copy,.footer-credits{border-top:1px solid rgba(255,255,255,.12);background:var(--footer-bg)}
+.footer-copy{padding:14px 0 20px}
+.footer-copy small{display:block;width:var(--footer-max);margin-inline:auto;text-align:center;color:var(--footer-text);opacity:.95}
+.footer-credits{padding:10px 0 18px}
 .footer-credits small{display:block;width:var(--footer-max);margin-inline:auto;text-align:center;letter-spacing:.2px;color:#fff!important}
 
-/* ====== Responsif kartu ====== */
-@media (max-width:900px){ .alam-grid{grid-template-columns:1fr} }
+/* ====== Responsif ====== */
+@media (max-width:900px){
+  .alam-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
 
-<!-- ====== HEADER (persis index) ====== -->
+<!-- ====== HEADER (copy dari index) ====== -->
 <header class="topbar">
   <div class="container nav">
     <div class="brand">
-      <span class="logo"><img src="busel.png" alt="Busel"></span>
+      <span class="logo"><img src="./static/img/busel.png" alt="Busel"></span>
       <div class="brand-text"><strong>Kabupaten</strong><br>Buton<br>Selatan</div>
     </div>
     <nav class="menu">
@@ -134,7 +143,16 @@ input,textarea,select,button{font:inherit}
   </div>
 </header>
 
-<!-- ====== SLIDER PELUKAN ALAM (tetap) ====== -->
+<!-- ====== (Opsional) Hero wave seperti index ====== -->
+<section class="home" aria-label="Hero" style="position:relative;overflow:hidden;background:var(--bg)">
+  <img class="home-bg" src="./static/img/header.png" alt="Latar Desa Gaya Baru" style="width:100%;height:400px;object-fit:cover;object-position:50% 28%;filter:contrast(1.05) saturate(1.05);display:block">
+  <div class="home-overlay" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,0))"></div>
+  <svg class="home-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:0;right:0;bottom:-2px;width:100%;height:120px">
+    <path d="M0,80 C240,20 480,140 720,80 C960,20 1200,120 1440,60 L1440,120 L0,120 Z" fill="var(--bg)"></path>
+  </svg>
+</section>
+
+<!-- ====== SLIDER PELUKAN ALAM ====== -->
 <section class="pelukan-alam">
   <div class="swiper pelukan-slider">
     <div class="swiper-wrapper">
@@ -170,7 +188,7 @@ input,textarea,select,button{font:inherit}
   <p>Keindahan alam Gaya Baru terpancar dari destinasi, laut, flora, dan faunanya—menjadi sumber kehidupan dan kebanggaan.</p>
 </div>
 
-<!-- ====== KEKAYAAN LAUT (tetap) ====== -->
+<!-- ====== KEKAYAAN LAUT ====== -->
 <section class="stay-list" style="isolation:isolate">
   <div class="container" style="position:relative;z-index:1">
     <h2 class="stay-title">Kekayaan Laut</h2>
@@ -200,7 +218,7 @@ input,textarea,select,button{font:inherit}
   </div>
 </section>
 
-<!-- ====== KEKAYAAN FLORA (tetap) ====== -->
+<!-- ====== KEKAYAAN FLORA ====== -->
 <section class="stay-list">
   <div class="container">
     <h2 class="stay-title">Kekayaan Flora</h2>
@@ -230,7 +248,7 @@ input,textarea,select,button{font:inherit}
   </div>
 </section>
 
-<!-- ====== KEKAYAAN FAUNA (tetap) ====== -->
+<!-- ====== KEKAYAAN FAUNA ====== -->
 <section class="stay-list">
   <div class="container">
     <h2 class="stay-title">Kekayaan Fauna</h2>
@@ -260,7 +278,7 @@ input,textarea,select,button{font:inherit}
   </div>
 </section>
 
-<!-- ====== PETA WISATA (tetap) ====== -->
+<!-- ====== PETA WISATA ====== -->
 <section class="map-section" id="peta">
   <div class="container">
     <h2 class="section-title">Peta Tempat Wisata</h2>
@@ -268,11 +286,12 @@ input,textarea,select,button{font:inherit}
   </div>
 </section>
 
-<!-- ====== FOOTER WAVE & FOOTER (persis index) ====== -->
-<svg aria-hidden="true" viewBox="0 0 1440 120" preserveAspectRatio="none" class="footer-wave">
-  <path d="M0,80 C200,40 400,120 600,80 C800,40 1000,120 1200,80 C1320,50 1440,100 1440,100 L1440,120 L0,120 Z"></path>
+<!-- ====== FOOTER WAVE (persis index) ====== -->
+<svg aria-hidden="true" viewBox="0 0 1440 120" preserveAspectRatio="none" style="display:block;width:100%;height:88px">
+  <path d="M0,80 C200,40 400,120 600,80 C800,40 1000,120 1200,80 C1320,50 1440,100 1440,100 L1440,120 L0,120 Z" fill="#1e365a"></path>
 </svg>
 
+<!-- ====== FOOTER (persis index) ====== -->
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
@@ -319,8 +338,9 @@ input,textarea,select,button{font:inherit}
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin></script>
 <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 <script src="https://unpkg.com/shpjs@latest/dist/shp.min.js"></script>
+
 <script>
-/* tahun footer */
+// Tahun footer
 document.getElementById('year').textContent = new Date().getFullYear();
 
 /* ====== Inisialisasi Swiper ====== */
@@ -338,18 +358,18 @@ document.addEventListener("DOMContentLoaded",async()=>{
   if(!window.L) return;
 
   // Basemap
-  const osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19});
-  const topo= L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",{maxZoom:17});
-  const sat = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",{maxZoom:19});
+  const osm  = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19});
+  const topo = L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",{maxZoom:17});
+  const sat  = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",{maxZoom:19});
 
   const map = L.map("leaflet-map",{center:[-5.66,122.76],zoom:13,layers:[osm]});
   const layerControl=L.control.layers({OSM:osm,Topografi:topo,Satelit:sat},null,{position:"topright",collapsed:true}).addTo(map);
 
   // Titik wisata
   const locations=[
-    {name:"Waburi Park",     coords:[-5.663294086295358,122.76500923206746]},
-    {name:"Pantai Kacimbola",coords:[-5.657579664077717,122.7610348916279]},
-    {name:"Ceruk Konawe",    coords:[-5.669443346244777,122.76431883050331]}
+    {name:"Waburi Park",      coords:[-5.663294086295358,122.76500923206746]},
+    {name:"Pantai Kacimbola", coords:[-5.657579664077717,122.7610348916279]},
+    {name:"Ceruk Konawe",     coords:[-5.669443346244777,122.76431883050331]}
   ];
   locations.forEach(l=>L.marker(l.coords).addTo(map).bindPopup(`<b>${l.name}</b>`));
 
@@ -392,7 +412,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
     if(c.includes("mangrove"))return{stroke:"#000",fill:"#A6FF78"};
     if(c.includes("hutan"))return{stroke:"#000",fill:"#C7E0B0"};
     if(c.includes("air")||c.includes("sungai")||c.includes("danau"))return{stroke:"#00FFFF",fill:"#CCFFFF"};
-    return{stroke:"#ff7b00",fill:"#ffd9ab"};
+    return{stroke:"#ff7b00",fill:"#ffd9ab"}
   };
 
   // Muat tutupan lahan dari ZIP
@@ -413,7 +433,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
     return tutupan;
   }
 
-  // rute + badge jarak
+  // Rute + badge jarak
   function makeRouteOverlay(title,fromName,toName,color="#0b67d0"){
     const A=byName(fromName),B=byName(toName); if(!A||!B) return;
     const group=L.layerGroup();
@@ -429,10 +449,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
       const r=e.routes[0];
       L.polyline(r.coordinates,{color,weight:5,opacity:.9}).addTo(group);
       const mid=midpointOnLine(r.coordinates),txt=fmtKm(r.summary.totalDistance);
-      L.marker(mid,{
-        icon:L.divIcon({className:"",html:`<div class="distance-badge-pin">${txt}</div>`,iconSize:null,iconAnchor:[0,0]}),
-        interactive:false
-      }).addTo(group)
+      L.marker(mid,{icon:L.divIcon({className:"",html:`<div class="distance-badge-pin">${txt}</div>`,iconSize:null,iconAnchor:[0,0]}),interactive:false}).addTo(group)
     })
     .addTo(map);
 
