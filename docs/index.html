@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GeoVillage+ - Beranda</title>
+
+  <link rel="stylesheet" href="./static/css/styles.css" />
+
+  <!-- Leaflet & shpjs -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin></script>
+  <script src="https://unpkg.com/shpjs@latest/dist/shp.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <div class="brand">
+        <span class="logo"><img src="./static/img/busel.png" alt="Busel" /></span>
+        <div class="brand-text"><strong>Kabupaten</strong><br>Buton<br>Selatan</div>
+      </div>
+      <nav class="menu">
+        <a href="./index.html" class="active">Beranda</a>
+        <a href="./warisan_abadi.html">Warisan Abadi</a>
+        <a href="./pelukan_alam.html">Pelukan Alam</a>
+        <a href="./tangan_berkarya.html">Tangan Berkarya</a>
+        <a href="./statistik_desa.html">Statistik Desa</a>
+        <a href="./sapa_kami.html" class="cta">Sapa Kami</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ======== KONTEN HOME ======== -->
+  <section class="home">
+    <img class="home-bg" src="./static/img/header.png" alt="home">
+    <div class="home-overlay"></div>
+    <svg class="home-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,80 C240,20 480,140 720,80 C960,20 1200,120 1440,60 L1440,120 L0,120 Z"></path>
+    </svg>
+  </section>
+
+  <section class="container explore">
+    <div class="explore-text">
+      <h2>Desa Gaya Baru</h2>
+      <p class="kicker">Kec. Lapandewa, Kab. Buton Selatan</p>
+      <p>Desa Gaya Baru terbentang di pesisir selatan Pulau Buton, dalam wilayah Kecamatan Lapandewa, Kabupaten Buton Selatan, Sulawesi Tenggara. Dengan luas sekitar <b>9,25 km²</b> dan berada pada ketinggian ±50 meter di atas permukaan laut, desa ini terletak pada koordinat <b>5°40′50″ LS</b> dan <b>122°45′50″ BT</b>. Lanskapnya memadukan perbukitan hijau yang landai dengan garis pantai tropis yang tenang. Laut Flores membingkai sisi selatan desa, sementara di utara ia berpaut dengan Desa Gerak Makmur, dan di timur serta baratnya beriringan dengan desa-desa lain di Lapandewa.</p>
+    </div>
+  </section>
+
+  <section class="map-section" id="peta">
+    <div class="container">
+      <div class="map-frame">
+        <div id="leaflet-osm" style="height:480px;"></div>
+      </div>
+    </div>
+  </section>
+  <!-- ============================= -->
+
+  <svg aria-hidden="true" viewBox="0 0 1440 120" preserveAspectRatio="none" style="display:block;width:100%;height:88px">
+    <path d="M0,80 C200,40 400,120 600,80 C800,40 1000,120 1200,80 C1320,50 1440,100 1440,100 L1440,120 L0,120 Z" fill="#1e365a"></path>
+  </svg>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-brand">Desa<br>Gaya<br>Baru</div>
+        <p>Kecamatan Lapandewa<br>Kabupaten Buton Selatan,<br>Sulawesi Tenggara 93753</p>
+      </div>
+      <div class="footer-contact">
+        <h4>Hubungi Kami</h4>
+        <ul class="contact-list">
+          <li>
+            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.9 19.9 0 0 1-8.6-3.1 19.6 19.6 0 0 1-6-6 19.9 19.9 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.8.3 1.6.6 2.4a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.7-1.1a2 2 0 0 1 2.1-.5c.8.2 1.6.5 2.4.6A2 2 0 0 1 22 16.9Z" stroke="currentColor" stroke-width="2"/></svg></span>
+            <a href="https://wa.me/6281323642950">0813-2364-2950</a>
+          </li>
+          <li>
+            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 7.5 12 13 21 7.5" stroke="currentColor" stroke-width="2"/></svg></span>
+            <a href="mailto:info@desagayabaru.id">info@desagayabaru.id</a>
+          </li>
+        </ul>
+        <div class="socials">
+          <a href="https://www.facebook.com/DesaGayaBaruKecLapandewaKabupatenButonSelatan/" target="_blank" rel="noopener" aria-label="Facebook" class="soc"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="currentColor" stroke-width="2"/></svg></a>
+          <a href="https://www.youtube.com/@Waburi_Park/" target="_blank" rel="noopener" aria-label="YouTube" class="soc"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="3" stroke="currentColor" stroke-width="2"/><path d="M10 9.5 15 12l-5 2.5z" fill="currentColor"/></svg></a>
+        </div>
+      </div>
+      <div><p style="font-style:italic">“Di pesisir ini, ombak bercerita, angin berbisik, dan kehidupan berjalan dalam harmoni.”</p></div>
+    </div>
+    <div class="footer-credits"><small>© <span id="year"></span> Desa Gaya Baru — by Mirdha Dhea Permata</small></div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+  <!-- Peta Leaflet -->
+  <script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    if (!window.L) return;
+
+    // Pastikan shpjs siap
+    const waitShp = () => new Promise(r => { if (window.shp) return r(); const i=setInterval(()=>{ if (window.shp){ clearInterval(i); r(); } },30); });
+    await waitShp();
+
+    const osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:20,attribution:"&copy; OpenStreetMap contributors"});
+    const map = L.map("leaflet-osm",{center:[-5.545,122.835],zoom:13,minZoom:5,maxZoom:18,layers:[osm],scrollWheelZoom:true});
+    L.control.scale({imperial:false}).addTo(map);
+
+    map.createPane("pane-busel"); map.getPane("pane-busel").style.zIndex = 500;
+    map.createPane("pane-gayabaru"); map.getPane("pane-gayabaru").style.zIndex = 510;
+
+    const buselStyle = {pane:"pane-busel",color:"#ff7e6d",weight:3,fillColor:"#ff7e6d",fillOpacity:.5};
+    const gayabaruStyle = {pane:"pane-gayabaru",color:"#3E6778",weight:3,fillColor:"#3E6778",fillOpacity:.5};
+
+    // ZIP shapefile ditempatkan di docs/static/geo/
+    const buselZip = "./static/geo/busel.zip";
+    const gayabaruZip = "./static/geo/gayabaru.zip";
+
+    const loadZipAsGeoJSON = async (url) => {
+      const res = await fetch(url); if (!res.ok) throw new Error("Gagal fetch "+url);
+      return await shp(await res.arrayBuffer());
+    };
+
+    try {
+      const gjBusel = await loadZipAsGeoJSON(buselZip);
+      const layerBusel = L.geoJSON(gjBusel,{style:buselStyle,onEachFeature:(f,l)=>l.bindTooltip(f?.properties?.NAMOBJ||"",{sticky:true})}).addTo(map);
+      map.fitBounds(layerBusel.getBounds(),{padding:[18,18]});
+
+      const gjGayaBaru = await loadZipAsGeoJSON(gayabaruZip);
+      const layerGayaBaru = L.geoJSON(gjGayaBaru,{style:gayabaruStyle,onEachFeature:(f,l)=>l.bindTooltip(f?.properties?.NAMOBJ||"",{sticky:true})}).addTo(map);
+      layerGayaBaru.bringToFront();
+    } catch (err) { console.error("Gagal memuat shapefile:", err); }
+
+    setTimeout(()=>map.invalidateSize(),150);
+    window.addEventListener("resize",()=>map.invalidateSize());
+  });
+  </script>
+</body>
+</html>

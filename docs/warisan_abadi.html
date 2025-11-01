@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GeoVillage+ - Warisan Abadi</title>
+  <link rel="stylesheet" href="./static/css/styles.css" />
+</head>
+<body>
+  <!-- Header/nav statis -->
+  <header class="topbar">
+    <div class="container nav">
+      <div class="brand">
+        <span class="logo"><img src="./static/img/busel.png" alt="Busel" /></span>
+        <div class="brand-text"><strong>Kabupaten</strong><br />Buton<br />Selatan</div>
+      </div>
+      <nav class="menu">
+        <a href="./index.html">Beranda</a>
+        <a href="./warisan_abadi.html" class="active">Warisan Abadi</a>
+        <a href="./pelukan_alam.html">Pelukan Alam</a>
+        <a href="./tangan_berkarya.html">Tangan Berkarya</a>
+        <a href="./statistik_desa.html">Statistik Desa</a>
+        <a href="./sapa_kami.html" class="cta">Sapa Kami</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===================== TEKS AWAL ===================== -->
+  <section class="story-free">
+    <div class="free-copy">
+      <p>Di pesisir selatan Pulau Buton, di mana Laut Flores memeluk daratan dengan lembut, berdirilah Desa Gaya Baru, sebuah perkampungan yang tumbuh dari laut, sejarah, dan budaya. Di sinilah jejak masa lampau masih berbisik di antara batu karang, dihembuskan angin utara, dan disimpan dalam ingatan masyarakat yang hidup bersahaja.</p>
+    </div>
+  </section>
+
+  <!-- ===================== STORIES ===================== -->
+  <section class="stories">
+    <!-- Garis penghubung (digambar oleh JS di bawah) -->
+    <svg class="story-connectors" aria-hidden="true"></svg>
+
+    <!-- Dekor ikan (atas) -->
+    <div class="fish-layer top" aria-hidden="true">
+      <svg class="fish swim-l" viewBox="0 0 64 32" aria-hidden="true"><use href="#fish-full"/></svg>
+      <svg class="fish swim-r" viewBox="0 0 64 32" aria-hidden="true"><use href="#fish-full"/></svg>
+      <svg class="fish swim-r tiny" viewBox="0 0 64 32" aria-hidden="true"><use href="#fish-plain"/></svg>
+      <svg class="fish swim-l tiny" viewBox="0 0 64 32" aria-hidden="true"><use href="#fish-plain"/></svg>
+    </div>
+
+    <!-- Story 1 -->
+    <article class="story">
+      <figure class="story-media ink ink-a">
+        <img src="./static/img/kesultanan.png" alt="Ilustrasi Kesultanan Buton" loading="lazy" decoding="async" />
+      </figure>
+      <div class="story-copy">
+        <p>Dahulu, wilayah ini berada di bawah naungan Kesultanan Buton, kerajaan maritim yang mengatur pelayaran, perdagangan, dan tata kehidupan di pulau-pulau sekitarnya.</p>
+      </div>
+    </article>
+
+    <!-- Story 2 (mirror layout) -->
+    <article class="story is-alt">
+      <figure class="story-media ink ink-b">
+        <img src="./static/img/rudat.png" alt="Ritual dan tata sosial Buton" loading="lazy" decoding="async" />
+      </figure>
+      <div class="story-copy stick-right">
+        <p>Di balik tembok benteng, lahir tatanan sosial berakar kuat pada adat. Para bangsawan, tokoh adat, dan pemimpin kampung menjaga nilai, menyampaikan perintah sultan, dan mengajarkan kehormatan pada generasi berikutnya.</p>
+        <p>Pengaruh Kesultanan meresap ke keseharian: bahasa, pakaian, hingga musyawarah mencerminkan nilai luhur leluhur. Adat menjadi tiang harmoni, laut menjadi panggung kehidupan.</p>
+      </div>
+    </article>
+
+    <!-- Story 3 -->
+    <article class="story">
+      <figure class="story-media ink ink-c">
+        <img src="./static/img/pelaut.png" alt="Para pelaut Desa Gaya Baru" loading="lazy" decoding="async" />
+      </figure>
+      <div class="story-copy stick-left">
+        <p>Setiap pagi, lelaki Gaya Baru mengarahkan perahu ke Laut Flores. Ombak menjadi sahabat menuju sumber rezeki; di darat, perempuan menjemur hasil laut dan menjaga rumah tetap bernyawa oleh aroma asin angin.</p>
+        <p>Adat dan laut menyatu: doa sebelum melaut, gotong royong membangun perahu, musik dan tarian sebagai syukur. Gaya Baru bukan sekadar tempat, melainkan kisah yang hidup.</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- ===================== TEKS AKHIR ===================== -->
+  <section class="story-free">
+    <div class="free-copy">
+      <p>Di sepanjang pantai dan perbukitan Lapandewa, masih tersisa jejak masa lalu—batu tua, sisa pemukiman, dan toponimi yang merekam hubungan manusia dengan kerajaan. Dari sanalah rasa bangga warga tumbuh sebagai bagian sejarah panjang Buton Selatan: laut sebagai nadi, adat sebagai arah.</p>
+      <p>Setiap ombak seolah membawa pesan lampau: keteguhan, kebersamaan, dan cinta tanah. Di sini, waktu tidak sekadar berlalu, tetapi menetap sebagai cerita—di antara karang, di dada nelayan, di ingatan tetua, dan di hati anak-anak pesisir.</p>
+    </div>
+  </section>
+
+  <!-- ===================== DEFINISI CLIP-PATH & SYMBOL ===================== -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <!-- clip-path blobs -->
+      <clipPath id="blobA" clipPathUnits="objectBoundingBox"><path d="M0.07,0.46 C0.12,0.20 0.33,0.04 0.56,0.06 C0.77,0.08 0.93,0.23 0.96,0.46 C0.99,0.69 0.86,0.90 0.64,0.96 C0.42,1.02 0.19,0.92 0.09,0.74 C0.03,0.63 0.04,0.53 0.07,0.46 Z"/></clipPath>
+      <clipPath id="blobB" clipPathUnits="objectBoundingBox"><path d="M0.18,0.20 C0.36,0.04 0.64,0.04 0.82,0.20 C0.96,0.34 0.98,0.62 0.82,0.80 C0.66,0.98 0.34,0.98 0.18,0.80 C0.02,0.62 0.04,0.34 0.18,0.20 Z"/></clipPath>
+      <clipPath id="blobC" clipPathUnits="objectBoundingBox"><path d="M0.10,0.48 C0.14,0.18 0.45,0.02 0.67,0.10 C0.85,0.17 0.96,0.35 0.96,0.52 C0.96,0.72 0.80,0.90 0.58,0.96 C0.36,1.02 0.18,0.92 0.10,0.76 C0.06,0.68 0.07,0.56 0.10,0.48 Z"/></clipPath>
+
+      <!-- fish symbols -->
+      <symbol id="fish-base" viewBox="0 0 64 32">
+        <path d="M8,16 L2,12 L2,20 Z" fill="currentColor"></path>
+        <ellipse cx="22" cy="16" rx="18" ry="10" fill="currentColor"></ellipse>
+      </symbol>
+      <symbol id="fish-full" viewBox="0 0 64 32">
+        <use href="#fish-base"></use>
+        <circle cx="31" cy="13" r="1.6" fill="#fff"></circle>
+      </symbol>
+      <symbol id="fish-plain" viewBox="0 0 64 32">
+        <use href="#fish-base"></use>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- ===================== DEKOR IKAN (bawah) ===================== -->
+  <div class="fish-layer" aria-hidden="true">
+    <svg class="fish swim-r" viewBox="0 0 64 32" aria-hidden="true"><use href="#fish-full"/></svg>
+    <svg class="fish swim-r" viewBox="0 0 64 32" aria-hidden="true"><use href="#fish-full"/></svg>
+    <svg class="fish swim-l" viewBox="0 0 64 32" aria-hidden="true"><use href="#fish-full"/></svg>
+    <svg class="fish swim-l" viewBox="0 0 64 32" aria-hidden="true"><use href="#fish-full"/></svg>
+    <svg class="fish swim-r tiny" viewBox="0 0 64 32" aria-hidden="true"><use href="#fish-plain"/></svg>
+    <svg class="fish swim-l tiny" viewBox="0 0 64 32" aria-hidden="true"><use href="#fish-plain"/></svg>
+  </div>
+
+  <section class="hotel-rec" id="hotel-rec">
+    <div class="container">
+      <div class="rec-head">
+        <h2>Berbagai aspek budaya berikut mencerminkan kehidupan sosial dan nilai-nilai adat yang masih dipertahankan oleh masyarakat Desa Gaya Baru.</h2>
+      </div>
+
+      <div class="rec-row">
+        <div class="rec-card">
+          <h3>Etnis Burangasi</h3>
+          <p>Desa Gaya Baru merupakan bagian dari komunitas budaya Etnis Burangasi, sub-etnis Cia-Cia dalam rumpun Suku Buton. Mereka memiliki kekayaan tradisi, bahasa daerah, dan sistem adat sendiri yang diwariskan secara turun-temurun. Identitas ini masih sangat kuat dalam kehidupan sehari-hari warga, tercermin dari penggunaan bahasa Cia-Cia dialek Lapandewa, pemeliharaan struktur adat, serta praktik budaya yang aktif dilestarikan hingga kini.</p>
+        </div>
+        <figure class="polaroid tilt-r"><img src="./static/img/etnis.png" alt="Etnis Burangasi" loading="lazy" decoding="async" /></figure>
+      </div>
+
+      <div class="rec-row right">
+        <div class="rec-card">
+          <h3>Kamali</h3>
+          <p>Dalam struktur sosial tradisional Buton, terdapat arsitektur adat yang mencerminkan status dan fungsi masyarakat, yaitu Kamali (juga dikenal sebagai Malige). Kamali adalah rumah adat berbentuk panggung tanpa paku, biasanya diperuntukkan bagi bangsawan atau pemimpin adat. Di komunitas Burangasi, bentuk rumah panggung ini masih menjadi inspirasi pembangunan Baruga (balai adat), yang digunakan sebagai pusat musyawarah dan pelaksanaan ritual.</p>
+        </div>
+        <figure class="polaroid tilt-l"><img src="./static/img/rumah.png" alt="Rumah adat Kamali" loading="lazy" decoding="async" /></figure>
+      </div>
+
+      <div class="rec-row">
+        <div class="rec-card">
+          <h3>Ma’acia Burangasi</h3>
+          <p>Ma’acia adalah pesta adat terbesar bagi masyarakat Burangasi. Dilaksanakan setiap tahun, Ma’acia merupakan bentuk syukur atas limpahan rezeki dan ajang silaturahmi antarwarga, baik yang tinggal di desa maupun perantauan. Rangkaian acara meliputi musyawarah adat, tari-tarian tradisional, dan jamuan bersama. Ma’acia bukan sekadar perayaan, tetapi juga bentuk nyata pelestarian nilai gotong royong, penghormatan kepada leluhur, dan penguatan identitas budaya.</p>
+        </div>
+        <figure class="polaroid tilt-r"><img src="./static/img/pesta.png" alt="Ma’acia Burangasi" loading="lazy" decoding="async" /></figure>
+      </div>
+
+      <div class="rec-row right">
+        <div class="rec-card">
+          <h3>Tari Linda</h3>
+          <p>Tari Linda atau Ngibi merupakan tarian klasik perempuan Buton yang mengekspresikan kelembutan, keanggunan, dan kesantunan. Gerakan yang gemulai mencerminkan nilai-nilai perempuan adat: malu, hormat, dan halus tutur. Di Gaya Baru, tarian ini kerap ditampilkan dalam acara pingitan remaja putri, penyambutan tamu, hingga pertunjukan budaya. Tari Linda menjadi simbol kecantikan dalam kesederhanaan masyarakat pesisir Buton.</p>
+        </div>
+        <figure class="polaroid tilt-l"><img src="./static/img/tari.png" alt="Tari Linda/Ngibi" loading="lazy" decoding="async" /></figure>
+      </div>
+
+      <div class="rec-row">
+        <div class="rec-card">
+          <h3>Silat Tradisional Buton (Manca)</h3>
+          <p>Manca adalah seni bela diri tradisional Buton yang berkembang di komunitas Gaya Baru. Selain sebagai pertahanan diri, Manca juga menjadi bagian dari pertunjukan budaya dan simbol ketangkasan pria dalam adat. Gerakannya menggabungkan teknik bela diri dan tarian, dan kerap ditampilkan bersama Tari Mangaru dalam acara penyambutan, Ma’acia, maupun pelatihan seni bela diri lokal.</p>
+        </div>
+        <figure class="polaroid tilt-r"><img src="./static/img/silat.png" alt="Silat Manca" loading="lazy" decoding="async" /></figure>
+      </div>
+    </div>
+  </section>
+
+  <svg aria-hidden="true" viewBox="0 0 1440 120" preserveAspectRatio="none" style="display:block;width:100%;height:88px">
+    <path d="M0,80 C200,40 400,120 600,80 C800,40 1000,120 1200,80 C1320,50 1440,100 1440,100 L1440,120 L0,120 Z" fill="#1e365a"></path>
+  </svg>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-brand">Desa<br />Gaya<br />Baru</div>
+        <p>Kecamatan Lapandewa<br />Kabupaten Buton Selatan,<br />Sulawesi Tenggara 93753</p>
+      </div>
+      <div class="footer-contact">
+        <h4>Hubungi Kami</h4>
+        <ul class="contact-list">
+          <li>
+            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.9 19.9 0 0 1-8.6-3.1 19.6 19.6 0 0 1-6-6 19.9 19.9 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.8.3 1.6.6 2.4a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.7-1.1a2 2 0 0 1 2.1-.5c.8.2 1.6.5 2.4.6A2 2 0 0 1 22 16.9Z" stroke="currentColor" stroke-width="2"/></svg></span>
+            <a href="https://wa.me/6281323642950">0813-2364-2950</a>
+          </li>
+          <li>
+            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 7.5 12 13 21 7.5" stroke="currentColor" stroke-width="2"/></svg></span>
+            <a href="mailto:info@desagayabaru.id">info@desagayabaru.id</a>
+          </li>
+        </ul>
+        <div class="socials">
+          <a href="https://www.facebook.com/DesaGayaBaruKecLapandewaKabupatenButonSelatan/" target="_blank" rel="noopener" aria-label="Facebook" class="soc"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="currentColor" stroke-width="2"/></svg></a>
+          <a href="https://www.youtube.com/@Waburi_Park/" target="_blank" rel="noopener" aria-label="YouTube" class="soc"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="3" stroke="currentColor" stroke-width="2"/><path d="M10 9.5 15 12l-5 2.5z" fill="currentColor"/></svg></a>
+        </div>
+      </div>
+      <div><p style="font-style:italic">“Di pesisir ini, ombak bercerita, angin berbisik, dan kehidupan berjalan dalam harmoni.”</p></div>
+    </div>
+    <div class="footer-credits"><small>© <span id="year"></span> Desa Gaya Baru — by Mirdha Dhea Permata</small></div>
+  </footer>
+
+  <!-- JS kecil untuk tahun footer + menggambar konektor antar cerita -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Gambar kurva penghubung antar .story .story-media
+    (function(){
+      const stories = document.querySelector(".stories");
+      const connectors = stories?.querySelector(".story-connectors");
+      if(!stories || !connectors) return;
+
+      const relRect = (el) => {
+        const c = stories.getBoundingClientRect();
+        const r = el.getBoundingClientRect();
+        return { x: r.left - c.left, y: r.top - c.top, w: r.width, h: r.height };
+      };
+
+      const anchorFor = (media) => {
+        const r = relRect(media);
+        const y = r.y + r.h * 0.55;
+        const pad = 8;
+        const alt = media.closest(".story")?.classList.contains("is-alt");
+        return alt ? { x: r.x + pad, y, side: "right" } : { x: r.x + r.w - pad, y, side: "left" };
+      };
+
+      const draw = () => {
+        const C = stories.getBoundingClientRect();
+        connectors.setAttribute("viewBox", `0 0 ${C.width} ${C.height}`);
+        connectors.setAttribute("width", C.width);
+        connectors.setAttribute("height", C.height);
+        connectors.innerHTML = "";
+
+        const pts = [...stories.querySelectorAll(".story .story-media")].map(anchorFor);
+        const ns = "http://www.w3.org/2000/svg";
+        const g = document.createElementNS(ns, "g");
+
+        for(let i=0;i<pts.length-1;i++){
+          const a = pts[i], b = pts[i+1];
+          const k = Math.min(140, Math.abs(b.x - a.x) * 0.6);
+          const c1 = a.side === "left" ? a.x + k : a.x - k;
+          const c2 = b.side === "left" ? b.x - k : b.x + k;
+          const p = document.createElementNS(ns, "path");
+          p.setAttribute("d", `M ${a.x} ${a.y} C ${c1} ${a.y}, ${c2} ${b.y}, ${b.x} ${b.y}`);
+          p.setAttribute("class", "connector");
+          g.appendChild(p);
+        }
+        pts.forEach(p => {
+          const d = document.createElementNS(ns, "circle");
+          d.setAttribute("cx", p.x);
+          d.setAttribute("cy", p.y);
+          d.setAttribute("r", 4.2);
+          d.setAttribute("class", "dot");
+          g.appendChild(d);
+        });
+
+        connectors.appendChild(g);
+      };
+
+      window.addEventListener("load", draw);
+      window.addEventListener("resize", draw);
+      stories.querySelectorAll("img").forEach(img => {
+        if(!img.complete) img.addEventListener("load", draw);
+      });
+    })();
+  </script>
+</body>
+</html>
