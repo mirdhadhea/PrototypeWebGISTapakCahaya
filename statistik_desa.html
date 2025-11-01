@@ -11,17 +11,19 @@
 
 <style>
 /* =================== THEME TOKENS =================== */
-:root{
-  --bg:#7ba6ac;--ink:#ffe9c4;--teal:#ff7e6d;--teal-2:#ff7e6d;--white:#fff;
-  --muted:color-mix(in srgb,var(--ink)70%,var(--bg)30%);
-  --menu-edge-gap:14px;--header-xpad:8px;--menu-gap:42px;--logo-size:50px;--header-py:30px;--brand-left-gap:16px;
-  --footer-bg:#1e365a;--footer-max:min(1100px,92%);--footer-accent:#fff;--footer-text:#fff;
-}
-*{box-sizing:border-box}
-body{margin:0;font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
-.container{width:min(1100px,92%);margin-inline:auto}
+  :root{
+    --bg:#7ba6ac;--ink:#ffe9c4;--teal:#ff7e6d;--teal-2:#ff7e6d;--white:#fff;
+    --muted:color-mix(in srgb,var(--ink)70%,var(--bg)30%);
+    --menu-edge-gap:14px;--header-xpad:8px;--menu-gap:42px;--logo-size:50px;--header-py:30px;--brand-left-gap:16px;
+    --footer-bg:#1e365a;--footer-max:min(1100px,92%);--footer-accent:#fff;--footer-text:#fff;
+    --story-max:min(1100px,92%);--story-media-w:clamp(380px,46vw,620px);--story-gap:clamp(12px,1.6vw,28px);
+    --img-overlap:clamp(-64px,-5vw,-24px);--text-overlap-right:clamp(-72px,-4.8vw,-32px);--text-overlap-left:clamp(-72px,-4.8vw,-32px)
+  }
+  *{box-sizing:border-box}*,*::before,*::after{font-family:inherit}
+  body{margin:0;font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+  .container{width:min(1100px,92%);margin-inline:auto}
 
-/* =================== HEADER (konsisten) =================== */
+ /* ======= HEADER / NAV (persis index) ======= */
 .topbar{background:#1e365a;color:var(--ink)}
 .topbar .container{width:100%;margin:0;padding:0 var(--header-xpad)}
 .nav{display:flex;align-items:center;gap:10px;padding-block:var(--header-py);min-height:calc(var(--logo-size) + var(--header-py))}
