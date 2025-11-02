@@ -9,19 +9,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 
   <style>
-  :root{
-    --bg:#7ba6ac;--ink:#ffe9c4;--teal:#ff7e6d;--teal-2:#ff7e6d;--white:#fff;
-    --muted:color-mix(in srgb,var(--ink)70%,var(--bg)30%);
-    --menu-edge-gap:14px;--header-xpad:8px;--menu-gap:42px;--logo-size:50px;--header-py:30px;--brand-left-gap:16px;
-    --footer-bg:#1e365a;--footer-max:min(1100px,92%);--footer-accent:#fff;--footer-text:#fff;
-    --story-max:min(1100px,92%);--story-media-w:clamp(380px,46vw,620px);--story-gap:clamp(12px,1.6vw,28px);
-    --img-overlap:clamp(-64px,-5vw,-24px);--text-overlap-right:clamp(-72px,-4.8vw,-32px);--text-overlap-left:clamp(-72px,-4.8vw,-32px)
-  }
-  *{box-sizing:border-box}*,*::before,*::after{font-family:inherit}
-  body{margin:0;font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
-  .container{width:min(1100px,92%);margin-inline:auto}
+/* ====== TOKENS GLOBAL (sama dengan index) ====== */
+:root{
+  --bg:#7ba6ac;--ink:#ffe9c4;--teal:#ff7e6d;--teal-2:#ff7e6d;--white:#fff;
+  --muted:color-mix(in srgb,var(--ink)70%,var(--bg)30%);
+  --menu-edge-gap:14px;--header-xpad:8px;--menu-gap:42px;--logo-size:50px;--header-py:30px;--brand-left-gap:16px;
+  --footer-bg:#1e365a;--footer-max:min(1100px,92%);--footer-accent:#fff;--footer-text:#fff;
+  --story-max:min(1100px,92%);--story-media-w:clamp(380px,46vw,620px);--story-gap:clamp(12px,1.6vw,28px);
+  --img-overlap:clamp(-64px,-5vw,-24px);--text-overlap-right:clamp(-72px,-4.8vw,-32px);--text-overlap-left:clamp(-72px,-4.8vw,-32px)
+}
+*{box-sizing:border-box}
+*,*::before,*::after{font-family:inherit}
+body{margin:0;font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+input,textarea,select,button{font:inherit}
+.container{width:min(1100px,92%);margin-inline:auto}
 
- /* ======= HEADER / NAV (persis index) ======= */
+/* ======= HEADER / NAV (persis index) ======= */
 .topbar{background:#1e365a;color:var(--ink)}
 .topbar .container{width:100%;margin:0;padding:0 var(--header-xpad)}
 .nav{display:flex;align-items:center;gap:10px;padding-block:var(--header-py);min-height:calc(var(--logo-size) + var(--header-py))}
@@ -32,6 +35,7 @@
 .menu{margin-left:auto;display:flex;align-items:center;justify-content:flex-end;gap:var(--menu-gap);flex-wrap:nowrap;padding-inline-end:var(--menu-edge-gap)}
 .menu a{text-decoration:none;font-weight:700;padding:8px 0;font-size:16px;color:var(--footer-accent)!important}
 .menu a:hover{color:#fff!important}
+.menu .cta{background:var(--teal-2);color:#fff;padding:10px 16px;border-radius:10px;border:1.5px solid var(--teal-2);box-shadow:0 6px 14px color-mix(in srgb,var(--teal-2)22%,#000 78%)}
 
   /* ===== STORY SECTIONS ===== */
   .story-hero.container{width:var(--story-max);margin:0 auto;padding:40px 0 16px}
