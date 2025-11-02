@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GeoVillage+</title>
-  <meta name="description" content="WebGIS Desa Gaya Baru — Buton Selatan" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
@@ -19,70 +18,94 @@
   :root{
     --bg:#7ba6ac;--ink:#ffe9c4;--teal:#ff7e6d;--teal-2:#ff7e6d;--white:#fff;
     --muted:color-mix(in srgb,var(--ink)70%,var(--bg)30%);
-    --menu-edge-gap:14px;--header-xpad:8px;--menu-gap:42px;--logo-size:50px;--header-py:30px;--brand-left-gap:16px;
+    --menu-edge-gap:14px;--header-xpad:12px;--menu-gap:42px;--logo-size:50px;--header-py:18px;--brand-left-gap:10px;
     --footer-bg:#1e365a;--footer-max:min(1100px,92%);--footer-accent:#fff;--footer-text:#fff;
-    --story-max:min(1100px,92%);--story-media-w:clamp(380px,46vw,620px);--story-gap:clamp(12px,1.6vw,28px);
+    --story-max:min(1100px,92%);--story-media-w:clamp(320px,46vw,620px);--story-gap:clamp(12px,1.6vw,28px);
     --img-overlap:clamp(-64px,-5vw,-24px);--text-overlap-right:clamp(-72px,-4.8vw,-32px);--text-overlap-left:clamp(-72px,-4.8vw,-32px)
   }
   *{box-sizing:border-box}
   *,*::before,*::after{font-family:inherit}
+  html,body{height:100%}
   body{margin:0;font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+  img{max-width:100%;height:auto;display:block}
   input,textarea,select,button{font:inherit}
   .container{width:min(1100px,92%);margin-inline:auto}
 
   /* ======= HEADER / NAV ======= */
-  .topbar{background:#1e365a;color:var(--ink)}
-  .topbar .container{width:100%;margin:0;padding:0 var(--header-xpad)}
+  .topbar{background:#1e365a;color:var(--ink);position:sticky;top:0;z-index:1000}
   .nav{display:flex;align-items:center;gap:10px;padding-block:var(--header-py);min-height:calc(var(--logo-size) + var(--header-py))}
-  .brand{display:flex;align-items:center;gap:8px;flex:0 0 auto;margin-left:var(--brand-left-gap)}
+  .brand{display:flex;align-items:center;gap:10px;flex:0 0 auto;margin-left:var(--brand-left-gap)}
   .logo{width:var(--logo-size);height:var(--logo-size);display:block}
-  .logo img{width:100%;height:100%;object-fit:contain;display:block}
-  .brand-text{line-height:1.05;font-weight:700;font-size:20px;color:var(--footer-accent)!important}
-  .menu{margin-left:auto;display:flex;align-items:center;justify-content:flex-end;gap:var(--menu-gap);flex-wrap:nowrap;padding-inline-end:var(--menu-edge-gap)}
-  .menu a{text-decoration:none;font-weight:700;padding:8px 0;font-size:16px;color:var(--footer-accent)!important}
+  .logo img{width:100%;height:100%;object-fit:contain}
+  .brand-text{line-height:1.05;font-weight:800;font-size:clamp(18px,2.2vw,22px);color:var(--footer-accent)!important}
+
+  .menu{margin-left:auto;display:flex;align-items:center;gap:clamp(14px,3.2vw,42px);flex-wrap:nowrap;padding-inline-end:var(--menu-edge-gap)}
+  .menu a{text-decoration:none;font-weight:700;padding:8px 0;font-size:clamp(14px,1.6vw,16px);color:var(--footer-accent)!important;white-space:nowrap}
   .menu a:hover{color:#fff!important}
-  .menu .cta{background:var(--teal-2);color:#fff;padding:10px 16px;border-radius:10px;border:1.5px solid var(--teal-2);box-shadow:0 6px 14px color-mix(in srgb,var(--teal-2)22%,#000 78%)}
+  .menu .cta{background:var(--teal-2);color:#fff;padding:10px 16px;border-radius:12px;border:1.5px solid var(--teal-2);box-shadow:0 6px 14px color-mix(in srgb,var(--teal-2)22%,#000 78%)}
+
+  /* Hamburger (muncul di ≤ 960px) */
+  .hamburger{
+    display:none;margin-left:auto;background:transparent;border:2px solid rgba(255,255,255,.5);
+    color:#fff;border-radius:12px;padding:8px;line-height:0
+  }
+  .hamburger svg{width:24px;height:24px}
+  @media (max-width: 960px){
+    .hamburger{display:inline-grid;place-items:center}
+    .menu{
+      position:fixed;inset:64px 12px auto 12px; /* bawah header */
+      background:#173055;border:1.5px solid rgba(255,255,255,.22);border-radius:16px;
+      padding:12px;display:grid;gap:6px;box-shadow:0 18px 48px rgba(0,0,0,.28);
+      transform:translateY(-16px);opacity:0;pointer-events:none;
+      transition:opacity .18s ease, transform .18s ease;
+    }
+    .menu a{padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.06)}
+    .menu .cta{display:block;text-align:center}
+    .menu[data-open="true"]{transform:none;opacity:1;pointer-events:auto}
+  }
 
   /* ======= HERO ======= */
   .home{position:relative;overflow:hidden;background:var(--bg)}
-  .home-bg{width:100%;height:400px;object-fit:cover;object-position:50% 28%;display:block;filter:contrast(1.05) saturate(1.05)}
+  .home-bg{width:100%;height:clamp(260px,42vh,520px);object-fit:cover;object-position:50% 28%;filter:contrast(1.05) saturate(1.05)}
   .home-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,0))}
-  .home-inner{position:absolute;inset:0;display:grid;align-content:center;gap:14px;color:#fff}
-  .home-wave{position:absolute;left:0;right:0;bottom:-2px;width:100%;height:120px}
+  .home-wave{position:absolute;left:0;right:0;bottom:-2px;width:100%;height:clamp(70px,10vh,120px)}
   .home-wave path{fill:var(--bg)}
 
   /* ======= INTRO / TEKS ======= */
-  .explore{padding-top:0!important;padding-bottom:30px!important;margin-top:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(20px,4vw,64px);padding-block:clamp(36px,6vw,96px);text-align:center}
-  .explore h2{font-size:clamp(28px,4.2vw,44px);font-weight:800;letter-spacing:.2px;line-height:1.15;color:var(--footer-bg);display:inline-block;position:relative;margin:12px auto .4rem;text-align:center}
+  .explore{padding-top:0!important;padding-bottom:30px!important;margin-top:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(20px,4vw,64px);padding-block:clamp(24px,6vw,96px);text-align:center}
+  .explore h2{font-size:clamp(26px,4.2vw,44px);font-weight:900;letter-spacing:.2px;line-height:1.15;color:var(--footer-bg);display:inline-block;position:relative;margin:12px auto .4rem;text-align:center}
   .explore h2::after{content:"";display:block;width:92px;height:6px;margin:10px auto 0;border-radius:999px;background:#3E6778!important}
-  .explore .kicker{display:block;max-width:min(900px,92%);margin:.75rem auto 1.1rem;text-align:center;text-transform:uppercase;letter-spacing:.14em;font-weight:900;color:#1E2F4F!important}
-  .explore p{color:rgba(30,47,79,.86);font-size:clamp(15px,1.6vw,18px);line-height:1.7;margin:0 0 12px;max-width:min(900px,92%);margin-inline:auto;text-align:justify}
-  .explore p strong{color:var(--teal);font-weight:900}
+  .explore .kicker{display:block;max-width:min(900px,92%);margin:.75rem auto 1.1rem;text-align:center;text-transform:uppercase;letter-spacing:.14em;font-weight:900;color:#1E2F4F!important;font-size:clamp(12px,1.3vw,14px)}
+  .explore p{color:rgba(30,47,79,.9);font-size:clamp(14px,1.4vw,18px);line-height:1.7;margin:0 0 12px;max-width:min(900px,92%);margin-inline:auto;text-align:justify}
 
   /* ======= MAP WRAP ======= */
   .map-frame{width:min(1100px,92%);margin-inline:auto}
-  #leaflet-osm{width:100%;height:520px;border:none!important;outline:none!important;border-radius:18px;box-shadow:0 18px 48px rgba(0,0,0,.18)}
-  .leaflet-container{background:none!important}
-  .leaflet-control.basemap-switch{display:flex;gap:6px;background:#FFFDF7;padding:6px;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.18);border:1.5px solid var(--footer-bg)}
-  .leaflet-control-zoom,.leaflet-control-layers{border-radius:12px!important;border:0!important;background:rgba(255,255,255,.55)!important;box-shadow:0 8px 18px rgba(0,0,0,.15)!important}
+  #leaflet-osm{
+    width:100%;
+    height:clamp(320px,58vh,560px);
+    border:none!important;outline:none!important;border-radius:18px;box-shadow:0 18px 48px rgba(0,0,0,.18)
+  }
+  .leaflet-container{background:none!important;font-size:clamp(12px,1.2vw,14px)}
   .leaflet-control-zoom a{border-radius:10px!important}
+  .leaflet-control-zoom,.leaflet-control-layers{border-radius:12px!important;border:0!important;background:rgba(255,255,255,.55)!important;box-shadow:0 8px 18px rgba(0,0,0,.15)!important}
+  .leaflet-tooltip{padding:6px 8px;font-weight:700;border-radius:10px}
+  @media (hover:none){
+    .leaflet-control-zoom a{padding:10px}
+  }
 
   /* ======= FOOTER ======= */
-  .footer-wave{height:84px;line-height:0;margin-bottom:-46px;pointer-events:none}
-  .footer-wave svg{width:100%;height:100%;display:block}
-  .footer-wave path{fill:var(--bg)}
   .site-footer{position:relative;overflow:hidden;background:#1e365a;color:#e4f1ef;padding-top:22px;margin-top:-1px}
   .footer-grid{position:relative;z-index:1;width:var(--footer-max);margin-inline:auto;display:grid;grid-template-columns:1.2fr 1.05fr 1fr;gap:clamp(20px,3vw,48px);align-items:start}
-  .footer-brand{font-weight:800;font-size:clamp(28px,3.6vw,32px);line-height:1.08;margin:0 0 .75rem;color:var(--footer-accent);letter-spacing:.2px}
+  .footer-brand{font-weight:800;font-size:clamp(26px,3.6vw,32px);line-height:1.08;margin:0 0 .75rem;color:var(--footer-accent);letter-spacing:.2px}
   .footer-addr{margin:.35rem 0 0;color:var(--footer-text);font-size:clamp(14px,1.6vw,18px);line-height:1.65;max-width:38ch}
-  .footer-contact h4{margin:0 0 .65rem;color:var(--footer-accent);font-size:clamp(18px,2vw,22px)}
+  .footer-contact h4{margin:0 0 .65rem;color:var(--footer-accent);font-size:clamp(16px,2vw,22px)}
   .contact-list{list-style:none;padding:0;margin:0 0 .85rem;display:grid;gap:.55rem}
   .contact-list li{display:flex;align-items:center;gap:.65rem}
-  .contact-list .ic{inline-size:28px;block-size:28px;display:grid;place-items:center;flex:0 0 auto}
+  .contact-list .ic{inline-size:32px;block-size:32px;display:grid;place-items:center;flex:0 0 auto}
   .contact-list .ic svg{stroke:#fff!important;fill:none!important;width:22px;height:22px;color:#fff!important}
   .contact-list a{color:#fefefe;text-decoration:none;font-weight:600}
   .contact-list a:hover{text-decoration:underline}
-  .footer-quote{color:var(--footer-text);font-style:italic;font-size:clamp(15px,1.8vw,20px);line-height:1.65;max-width:42ch}
+  .footer-quote{color:var(--footer-text);font-style:italic;font-size:clamp(14px,1.6vw,20px);line-height:1.65;max-width:42ch}
   .socials{display:flex;gap:.7rem;margin-top:.4rem}
   .socials .soc{width:40px;height:40px;border-radius:12px;border:2px solid rgba(255,255,255,.45);display:grid;place-items:center;color:#fff;transition:transform .18s ease,border-color .18s ease,background-color .18s ease}
   .socials .soc svg{width:20px;height:20px}
@@ -93,10 +116,13 @@
   .footer-credits{padding:10px 0 18px}
   .footer-credits small{display:block;width:var(--footer-max);margin-inline:auto;text-align:center;letter-spacing:.2px;color:#fff!important}
 
-  /* ===== (dipangkas) =====
-     Semua kelas lain dari CSS-mu tetap bisa ditambahkan di sini bila dibutuhkan.
-     Yang penting untuk halaman ini: header, hero, intro, map, footer.
-  */
+  /* Footer responsif */
+  @media (max-width: 960px){
+    .footer-grid{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width: 640px){
+    .footer-grid{grid-template-columns:1fr}
+  }
   </style>
 </head>
 <body>
@@ -108,8 +134,15 @@
         <span class="logo"><img src="busel.png" alt="Busel"></span>
         <div class="brand-text"><strong>Kabupaten</strong><br>Buton<br>Selatan</div>
       </div>
-      <nav class="menu">
-        <!-- Untuk GitHub Pages, pakai file html biasa. Buat file2 ini kalau dibutuhkan. -->
+
+      <!-- Tombol hamburger -->
+      <button class="hamburger" id="hamburger" aria-label="Buka menu" aria-controls="mainmenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <nav class="menu" id="mainmenu" data-open="false">
         <a href="./index.html" class="active">Beranda</a>
         <a href="./warisan_abadi.html">Warisan Abadi</a>
         <a href="./pelukan_alam.html">Pelukan Alam</a>
@@ -154,7 +187,7 @@
   </section>
 
   <!-- ====== FOOTER WAVE ====== -->
-  <svg aria-hidden="true" viewBox="0 0 1440 120" preserveAspectRatio="none" style="display:block;width:100%;height:88px">
+  <svg aria-hidden="true" viewBox="0 0 1440 120" preserveAspectRatio="none" style="display:block;width:100%;height:clamp(64px,9vh,88px)">
     <path d="M0,80 C200,40 400,120 600,80 C800,40 1000,120 1200,80 C1320,50 1440,100 1440,100 L1440,120 L0,120 Z" fill="#1e365a"></path>
   </svg>
 
@@ -205,6 +238,28 @@
   // Tahun footer
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  // Toggle menu responsif
+  const hamburger = document.getElementById('hamburger');
+  const mainmenu  = document.getElementById('mainmenu');
+  const toggleMenu = (open) => {
+    mainmenu.dataset.open = open ? 'true' : 'false';
+    hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    // Setelah animasi, pastikan peta menghitung ulang ukuran
+    if (window._leafletMap) setTimeout(()=>window._leafletMap.invalidateSize(), 200);
+  };
+  hamburger.addEventListener('click', () => {
+    const nowOpen = mainmenu.dataset.open !== 'true';
+    toggleMenu(nowOpen);
+  });
+  // Tutup menu saat klik di luar (mobile)
+  document.addEventListener('click', (e)=>{
+    if (window.matchMedia('(max-width: 960px)').matches){
+      if (!mainmenu.contains(e.target) && !hamburger.contains(e.target)){
+        toggleMenu(false);
+      }
+    }
+  });
+
   // Inisialisasi peta Leaflet + load Shapefile ZIP (busel & gayabaru)
   (async () => {
     if (!window.L) return;
@@ -229,6 +284,8 @@
       layers: [osm],
       scrollWheelZoom: true
     });
+    // Expose untuk invalidateSize dari toggle
+    window._leafletMap = map;
 
     L.control.scale({imperial:false}).addTo(map);
 
@@ -252,23 +309,25 @@
       const gjBusel = await loadZipAsGeoJSON(buselZip);
       const layerBusel = L.geoJSON(gjBusel, {
         style: buselStyle,
-        onEachFeature: (f, l) => l.bindTooltip(f?.properties?.NAMOBJ || "", {sticky:true})
+        onEachFeature: (f, l) => l.bindTooltip(f?.properties?.NAMOBJ || "Kab. Buton Selatan", {sticky:true})
       }).addTo(map);
       map.fitBounds(layerBusel.getBounds(), {padding:[18,18]});
 
       const gjGayaBaru = await loadZipAsGeoJSON(gayabaruZip);
       const layerGayaBaru = L.geoJSON(gjGayaBaru, {
         style: gayabaruStyle,
-        onEachFeature: (f, l) => l.bindTooltip(f?.properties?.NAMOBJ || "", {sticky:true})
+        onEachFeature: (f, l) => l.bindTooltip(f?.properties?.NAMOBJ || "Desa Gaya Baru", {sticky:true})
       }).addTo(map);
       layerGayaBaru.bringToFront();
     } catch (err) {
       console.error("Gagal memuat shapefile:", err);
     }
 
-    // Perbaiki ukuran saat pertama kali render & saat resize
-    setTimeout(()=>map.invalidateSize(),150);
-    window.addEventListener("resize",()=>map.invalidateSize());
+    // Render pertama & saat resize/orientasi berubah
+    const invalidate = ()=> map.invalidateSize();
+    setTimeout(invalidate,150);
+    window.addEventListener("resize", invalidate);
+    window.matchMedia("(orientation: portrait)").addEventListener("change", invalidate);
   })();
   </script>
 </body>
