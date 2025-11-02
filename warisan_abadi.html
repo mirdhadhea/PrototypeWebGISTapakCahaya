@@ -106,13 +106,26 @@ input,textarea,select,button{font:inherit}
   .stories .story:nth-of-type(2) .story-copy,
   .stories .story:nth-of-type(3) .story-copy{ margin:0 !important; }
 }
-
-    .story-connectors{
-  position:absolute; inset:0; z-index:1; pointer-events:none;
+/* === SPASI & LEBAR JUDUL BLOK BUDAYA === */
+.hotel-rec{
+  /* tambah ruang atas–bawah section */
+  padding: clamp(56px, 8vw, 96px) 0 clamp(64px, 9vw, 100px);
 }
-.story-connectors path{
-  fill:none; stroke:rgba(30,54,90,.35);
-  stroke-width:2; stroke-linecap:round; stroke-linejoin:round;
+
+.rec-head{
+  /* ruang di sekitar judul */
+  margin: clamp(28px, 6vw, 56px) auto clamp(24px, 5vw, 48px);
+  padding: 0 clamp(12px, 3vw, 24px);
+}
+
+.rec-head h2{
+  /* batasi lebar kalimat agar tidak terasa menekan */
+  max-width: 62ch;              /* ~62 karakter */
+  margin: 0 auto;               /* center */
+  line-height: 1.25;
+  text-wrap: balance;           /* browser yg support akan bagi baris rapi */
+  /* sedikit jarak ekstra di dalam kalau perlu */
+  padding: clamp(4px, 0.8vw, 8px) 0;
 }
 
 
@@ -335,7 +348,7 @@ input,textarea,select,button{font:inherit}
   <!-- ===== Simple JS: tahun footer + garis konektor antar story ===== -->
   <script>
     // Tahun footer
-    document.getElementById('y').textContent = new Date().getFullYear();
+    document.getElementById('year').textContent = new Date().getFullYear();
 
     // Garis penghubung sederhana antar .story-media dan .story-copy
     (function drawConnectors(){
