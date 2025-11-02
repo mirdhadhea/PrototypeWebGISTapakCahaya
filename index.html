@@ -116,6 +116,85 @@
   .footer-credits{padding:10px 0 18px}
   .footer-credits small{display:block;width:var(--footer-max);margin-inline:auto;text-align:center;letter-spacing:.2px;color:#fff!important}
 
+    /* === MOBILE/TABLET POLISH (≤ 960px) === */
+@media (max-width: 960px){
+  :root{
+    --logo-size:44px;         /* perkecil logo */
+    --header-py:12px;         /* header lebih padat */
+    --menu-edge-gap:10px;
+  }
+  .topbar .container{padding-inline:12px;}
+  .brand{gap:8px}
+  .brand-text{
+    font-size:18px;
+    font-weight:800;
+    max-width:60vw;           /* cegah pecah baris berlebihan */
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    line-height:1.1;
+  }
+  .brand-text br{display:none;} /* jadi satu baris: "Kabupaten Buton Selatan" */
+
+  /* Tombol hamburger lebih rapi */
+  .hamburger{
+    border:none;
+    padding:10px;
+    border-radius:14px;
+    background:rgba(255,255,255,.12);
+    backdrop-filter: blur(4px);
+  }
+
+  /* Hero lebih proporsional */
+  .home-bg{height:clamp(220px,38vh,420px)}
+  .home-wave{height:64px}
+
+  /* Paragraf nyaman dibaca di HP */
+  .explore p{font-size:15px; line-height:1.75}
+
+  /* Kartu peta: benar-benar “kartu” + clip sudut */
+  .map-frame{
+    border-radius:18px;
+    overflow:hidden;             /* clip controls di sudut */
+    box-shadow:0 18px 48px rgba(0,0,0,.18);
+    background:rgba(255,255,255,.06);
+  }
+  #leaflet-osm{
+    height:clamp(280px,56vh,520px);
+    border-radius:0;             /* radius sudah di wrapper */
+    box-shadow:none;
+  }
+  .leaflet-container{font-size:12px}
+  .leaflet-control-zoom a{padding:10px}
+  .leaflet-control-attribution{font-size:11px; padding:0 6px}
+
+  /* Jarak aman dari wave/footer */
+  .map-section{padding-bottom:clamp(20px,5vh,36px)}
+}
+
+/* === VERY SMALL (≤ 420px) === */
+@media (max-width: 420px){
+  :root{ --logo-size:40px; --header-py:10px; }
+  .brand-text{font-size:16px}
+  .explore h2{font-size:26px}
+  .explore .kicker{font-size:12px}
+}
+
+/* === FOOTER & SAFE-AREA (iOS Safari) === */
+.site-footer{padding-bottom:calc(18px + env(safe-area-inset-bottom, 0px))}
+.footer-credits{padding-bottom:calc(12px + env(safe-area-inset-bottom, 0px))}
+
+/* === Spasi wave atas footer agar tidak “nabrak” konten === */
+svg[viewBox="0 0 1440 120"][preserveAspectRatio="none"]{
+  margin-top:clamp(20px,4vh,40px);
+  display:block;
+  width:100%;
+}
+
+/* === Perhalus focus/hover untuk aksesibilitas tanpa efek berantakan === */
+.menu a:focus-visible,
+.hamburger:focus-visible{outline:3px solid rgba(255,255,255,.6); outline-offset:3px; border-radius:12px}
+
   /* Footer responsif */
   @media (max-width: 960px){
     .footer-grid{grid-template-columns:1fr 1fr}
@@ -123,6 +202,8 @@
   @media (max-width: 640px){
     .footer-grid{grid-template-columns:1fr}
   }
+
+    
   </style>
 </head>
 <body>
